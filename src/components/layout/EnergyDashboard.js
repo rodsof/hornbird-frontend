@@ -163,12 +163,12 @@ const EnergyDashboard = () => {
           stats="Updated 30 minutes ago"
           content={
             <div className="ct">
-                <LineChart
-                data={ahucop}
-                title="AHU COP"
-                color="#FA0000"
-                unit=""
-              />
+                {/* <LineChart
+              //   data={ahucop}
+              //   title="AHU COP"
+              //   color="#FA0000"
+              //   unit=""
+              // /> */}
             </div>
           }
         />

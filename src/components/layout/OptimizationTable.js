@@ -2,28 +2,35 @@ import React from "react";
 import { Table, Card, Dropdown } from "react-bootstrap";
 
 const Example = (props) => {
+
+  console.log("props.energyTableData====>", props.energyTableData)
   return (
     <Card style={{ padding: "30px" }}>
       <Table striped bordered hover style={{ marginTop: "20px" }}>
         <thead>
           <tr>
-            <th>DATE</th>
-            <th>POWER CONSUMPTION</th>
-            <th>ACTUAL SA FAN FREQUENCY</th>
-            <th>PREDICTED VALUE</th>
+            <th>Tin Condenser, C</th>
+            <th>chwtout</th>
+            <th>dT Air, C</th>
+            <th>dT CHW</th>
+            <th>safanfrequency</th>
+            <th>totalpower</th>
+
+
           </tr>
         </thead>
         <tbody>
-          {props.data.map((item) => {
-            return (
+         
               <tr>
-                <td>{item.date}</td>
-                <td>{item.name}</td>
-                <td>{item.condition}</td>
-                <td>{item.params}</td>
+                <td>{props.energyTableData && props.energyTableData["Tin Condenser, C"]}</td>
+                <td>{props.energyTableData && props.energyTableData["chwtout"]}</td>
+                <td>{props.energyTableData && props.energyTableData["dT Air, C"]}</td>
+                <td>{props.energyTableData && props.energyTableData["dT CHW, C"]}</td>
+                <td>{props.energyTableData && props.energyTableData["safanfrequency"]}</td>
+                <td>{props.energyTableData && props.energyTableData["totalpower"]}</td>
+
               </tr>
-            );
-          })}
+           
         </tbody>
       </Table>
     </Card>
