@@ -45,7 +45,7 @@ const Example = (props) => {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+              <Form.Control type="text" placeholder="Name" disabled value={name} onChange={(e) => setName(e.target.value)} />
 
             </Form.Group>
 
@@ -93,7 +93,7 @@ const Example = (props) => {
               <tr>
                 <td>{item.name}</td>
                 <td>{item.condition}</td>
-                <td>{item.params} <span onClick={() => setModal(true)} style={{ float: "right", padding: "5px", cursor: "pointer" }}>
+                <td>{item.params} <span onClick={() => {setModal(true); setName(item.name)}} style={{ float: "right", padding: "5px", cursor: "pointer" }}>
                   <Pencil color="gray" size={20} />
 
 
