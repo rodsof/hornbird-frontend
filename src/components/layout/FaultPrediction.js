@@ -76,7 +76,7 @@ const FaultPrediction = (props) => {
     getSelectedTable(select);
   }
 
-  
+
 
 
   // console.log("getMachineCondition=-=>", machineConditionData)
@@ -88,7 +88,7 @@ const FaultPrediction = (props) => {
   //   }
   // }
   // console.log("setParams====>",setParams)
-  if(setParams){
+  if (setParams) {
     alert(setParams.msg)
   }
   return (
@@ -120,6 +120,13 @@ const FaultPrediction = (props) => {
               </Col>
             </Row>
             <br />
+            <Row>
+              <Col>
+                <p>Shows the overall health state of machine.The red line is threshold of good health the blue line shows the current health state far from the red line weaker the health.</p>
+              </Col>
+            </Row>
+
+            <br />
             <br />
 
 
@@ -137,12 +144,12 @@ const FaultPrediction = (props) => {
               />
             </div> */}
 
-            <div className="ct-chart" style={{ width: "500px", alignSelf: "flex-end",padding:"30px",margin:"30px" }}>
+            <div className="ct-chart" style={{ width: "500px", alignSelf: "flex-end", padding: "30px", margin: "30px" }}>
 
               <LineChart
                 // data={[{ label: "jan", value: 30 }, { label: "feb", value:60 },{ label: "mar", value: 90 }, { label: "apr", value: 150 }]}
                 // data={dataset}
-                data={machineConditionData ? machineConditionData: [{label:"wait",value:1,threshold:3.9}]}
+                data={machineConditionData ? machineConditionData : [{ label: "wait", value: 1, threshold: 3.9 }]}
                 title="Energy"
                 color="#2F4B8A"
                 // max={10}
@@ -156,9 +163,16 @@ const FaultPrediction = (props) => {
             <br />
             <Row>
               <Col>
-                <h4>Anamoly Detector</h4>
+                <h4>Anomaly Detector</h4>
               </Col>
             </Row>
+            <br />
+            <Row>
+              <Col>
+                <p>Anomaly detector represent actuators, sensors and motor performance it takes a last reading monitors if there is any abnormal activity and trigger it as alarm</p>
+              </Col>
+            </Row>
+            <br />
 
             <FaultTable data={data} getSelectedItems={getSelectedItems} setParameters={setParameters} faultTableData={faultTableData} />
 

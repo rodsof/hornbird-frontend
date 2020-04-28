@@ -7,6 +7,7 @@ const Example = (props) => {
   const [name, setName] = useState("")
   const [lower, setLower] = useState("")
   const [upper, setUpper] = useState("")
+  const [dropValue,setDropValue]=useState("Actuator")
   let arr = []
   console.log("FAULTtABLEdata=====>",props.faultTableData)
   // props.faultTableData
@@ -70,17 +71,18 @@ const Example = (props) => {
         </Modal.Footer>
       </Modal>
       <Dropdown>
-        <Dropdown.Toggle id="dropdown-basic">Select</Dropdown.Toggle>
+        <Dropdown.Toggle id="dropdown-basic">{dropValue}</Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1" onSelect={() => props.getSelectedItems("sensor")} >Sensor</Dropdown.Item>
-          <Dropdown.Item href="#/action-2" onSelect={() => props.getSelectedItems("actuator")} >Actuator</Dropdown.Item>
-          <Dropdown.Item href="#/action-3" onSelect={() => props.getSelectedItems("motor")}>Motor</Dropdown.Item>
+          <Dropdown.Item href="#/actuator" onSelect={() =>{ props.getSelectedItems("actuator"); setDropValue("Actuator")}} >Actuator</Dropdown.Item>
+          <Dropdown.Item href="#/sensor" onSelect={() => {props.getSelectedItems("sensor"); setDropValue("Sensor")}} >Sensor</Dropdown.Item>
+          <Dropdown.Item href="#/motor" onSelect={() => {props.getSelectedItems("motor"); setDropValue("Motor")}}>Motor</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       <Table striped bordered hover style={{ marginTop: "20px" }}>
         <thead>
           <tr>
+            <th>Date</th>
             <th>Name</th>
             <th>HEALTH CONDITION</th>
             <th>SET PARAMETERS</th>
@@ -91,9 +93,10 @@ const Example = (props) => {
           { props.faultTableData &&  props.faultTableData.map((item, inx) => {
             return (
               <tr>
+                <td>{item.date}</td>
                 <td>{item.name}</td>
                 <td>{item.condition}</td>
-                <td>{item.params} <span onClick={() => {setModal(true); setName(item.name)}} style={{ float: "right", padding: "5px", cursor: "pointer" }}>
+                <td>{item.lower} ----- {item.upper} <span onClick={() => {setModal(true); setName(item.name)}} style={{ float: "right", padding: "5px", cursor: "pointer" }}>
                   <Pencil color="gray" size={20} />
 
 

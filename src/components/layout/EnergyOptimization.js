@@ -46,7 +46,7 @@ let lastDate;
 let minDate;
 // function getTotalEnergy(x,y) {
 
-function getTotalEnergy(x,y) {
+function getTotalEnergy(x, y) {
   let data = [];
   for (var i = 0; i < x.length; i++)
     data.push({
@@ -69,13 +69,13 @@ const EnergyOptimization = (props) => {
   const authContext = useContext(AuthContext);
   const { usuarioAutenticado, getUsers, usuarios } = authContext;
   const itemsContext = useContext(itemContext);
-  const { item ,getEnergyOptimization,energyTableData} = itemsContext;
+  const { item, getEnergyOptimization, energyTableData } = itemsContext;
   let name = "";
   const dashboardContext = useContext(DashboardContext);
   const { dashboard } = dashboardContext;
 
   const chartsContext = useContext(chartContext);
-  const { getDataset, dataset ,getGraphApi,graphApiData} = chartsContext;
+  const { getDataset, dataset, getGraphApi, graphApiData } = chartsContext;
   useEffect(() => {
     usuarioAutenticado();
     // eslint-disable-next-line
@@ -100,12 +100,12 @@ const EnergyOptimization = (props) => {
   // }
   // totalEnergy = getTotalEnergy(dataset);
 
-  if(graphApiData){
+  if (graphApiData) {
 
-    totalEnergy_1 = getTotalEnergy(graphApiData.X1,graphApiData.y1);
-    totalEnergy_2 = getTotalEnergy(graphApiData.X2,graphApiData.y2);
-    totalEnergy_3 = getTotalEnergy(graphApiData.X3,graphApiData.y3);
-    totalEnergy_4 = getTotalEnergy(graphApiData.X4,graphApiData.y4);
+    totalEnergy_1 = getTotalEnergy(graphApiData.X1, graphApiData.y1);
+    totalEnergy_2 = getTotalEnergy(graphApiData.X2, graphApiData.y2);
+    totalEnergy_3 = getTotalEnergy(graphApiData.X3, graphApiData.y3);
+    totalEnergy_4 = getTotalEnergy(graphApiData.X4, graphApiData.y4);
 
   }
 
@@ -143,7 +143,7 @@ const EnergyOptimization = (props) => {
             <br />
             <div
               className="ct-chart"
-              style={{ height: 300, width: "33%", display: "inline-block" ,margin:"20px" }}
+              style={{ height: 300, width: "33%", display: "inline-block", margin: "20px" }}
             >
               <BarChart
                 data={totalEnergy_1}
@@ -156,7 +156,7 @@ const EnergyOptimization = (props) => {
             </div>
             <div
               className="ct-chart"
-              style={{ height: 300, width: "33%", display: "inline-block",margin:"20px"  }}
+              style={{ height: 300, width: "33%", display: "inline-block", margin: "20px" }}
             >
               <BarChart
                 data={totalEnergy_2}
@@ -169,7 +169,7 @@ const EnergyOptimization = (props) => {
             </div>{" "}
             <div
               className="ct-chart"
-              style={{ height: 300, width: "33%", display: "inline-block",margin:"20px"  }}
+              style={{ height: 300, width: "33%", display: "inline-block", margin: "20px" }}
             >
               <BarChart
                 data={totalEnergy_3}
@@ -182,7 +182,7 @@ const EnergyOptimization = (props) => {
             </div>
             <div
               className="ct-chart"
-              style={{ height: 300, width: "33%", display: "inline-block",margin:"20px"  }}
+              style={{ height: 300, width: "33%", display: "inline-block", margin: "20px" }}
             >
               <BarChart
                 data={totalEnergy_4}
@@ -197,11 +197,16 @@ const EnergyOptimization = (props) => {
             <br />
             <Row>
               <Col>
-                <h4 style={{marginBottom:20}} >Optimization</h4>
+                <h4 style={{ marginBottom: 20 }} >Optimization</h4>
               </Col>
             </Row>
-            <OptimizationTable data={data} energyTableData={ energyTableData && energyTableData["Current Reading"]} />
             <Row>
+              <Col>
+                <p>The last reading shows the values read by machine second last time the current reading shows the latest readings and optimize reading shows the readings suggested by AI for better performance.</p>              </Col>
+            </Row>
+            <OptimizationTable data={data} energyTableData={energyTableData && energyTableData} />
+            <br />
+            {/* <Row>
               <Col>
                 <h4 style={{marginBottom:20}} >Optimization</h4>
               </Col>
@@ -213,6 +218,7 @@ const EnergyOptimization = (props) => {
               </Col>
             </Row>
             <OptimizationTable data={data} energyTableData={energyTableData && energyTableData["Optimized Current Reading"]} />
+         */}
           </Container>
         </main>
       </div>

@@ -49,7 +49,7 @@ const ItemState = props => {
       console.log("result.data=====>", result.data)
       let arr=[]
       for (var k in result.data) {
-        arr.push({ name: k,condition:result.data[k].status,value:result.data[k].status,params:"Range" })
+        arr.push({ name: k,condition:result.data[k].status,value:result.data[k].anamoly_value,lower:result.data[k].lower_value,upper:result.data[k].upper_value,date:result.data[k].date })
       }
       dispatch({
         type: GET_FAULT_TABLE,
