@@ -112,7 +112,7 @@ const AlarmsList = (props) => {
     const authContext = useContext(AuthContext);
     const { usuario } = authContext; 
     let newAlarms = calculateAlarms(dataset, alarms);
-
+    console.log('userss ==>',usuario)
     if (alarms.length === 0){
     for (var i = 0 ; i < newAlarms.length ; i++){
         createAlarm({

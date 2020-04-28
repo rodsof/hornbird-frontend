@@ -11,7 +11,7 @@ import chartContext from "../../context/charts/chartContext";
 import BarChart from "../charts/BarChart"
 
 
-const DashboardSummary = (props) => {
+const AlarmSummary = (props) => {
   const authContext = useContext(AuthContext);
   const { usuarioAutenticado, getUsers, usuarios } = authContext; 
   const itemsContext = useContext(itemContext);
@@ -52,7 +52,17 @@ const DashboardSummary = (props) => {
       null }
       <div className="col-md-9 nopadding">
         <main>
-       <EnergyDashboard />
+        { !item ?
+       <AlarmsList 
+       usuarios={usuarios}
+       dataset={dataset}
+       />
+        : name ==="FDD Alarms"?
+        <AlarmsList 
+        usuarios={usuarios}
+        dataset={dataset}
+        /> :  null
+        }
         </main>
 
          <div className="ct-chart">
@@ -73,4 +83,4 @@ const DashboardSummary = (props) => {
   );
 };
 
-export default DashboardSummary;
+export default AlarmSummary;

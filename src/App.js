@@ -5,8 +5,10 @@ import Register from "./components/auth/Register";
 import SignIn from "./components/auth/SignIn";
 import Administration from "./components/layout/Administration";
 import DashboardSummary from "./components/layout/DashboardSummary";
-import FaultPrediction from "./components/layout/FaultPrediction"
-import EnergyOptimization from "./components/layout/EnergyOptimization"
+import AlarmSummary from "./components/layout/AlarmSummary";
+import EnergySummary from "./components/layout/EnergySummary";
+import FaultPrediction from "./components/layout/FaultPrediction";
+import EnergyOptimization from "./components/layout/EnergyOptimization";
 import AlertaState from "./context/alertas/alertaState";
 import AuthState from "./context/autenticacion/authState";
 import AlarmState from "./context/alarms/alarmState";
@@ -37,6 +39,12 @@ function App() {
                       exact
                       path="/dashboard"
                       component={DashboardSummary}
+                    />
+                    <RutaPrivada exact path="/alarm" component={AlarmSummary} />
+                    <RutaPrivada
+                      exact
+                      path="/energy"
+                      component={EnergySummary}
                     />
                     <RutaPrivada
                       exact

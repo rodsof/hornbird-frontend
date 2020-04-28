@@ -1,5 +1,6 @@
 import React, {  useContext } from "react";
 import ItemsList from '../items/ItemsList';
+import { Link } from "react-router-dom";
  
 
 const Dashboard = () => {
@@ -8,10 +9,10 @@ const Dashboard = () => {
       <div id="sidebar" className="nav-collapse ">
         <ul className="sidebar-menu">
           <li className="active">
-            <a className="btn btn-primario btn-block" href="#">
+            <Link to="/dashboard" className="btn btn-primario btn-block" >
                           <i className="icon_house_alt"></i>
                           <span>Dashboard</span>
-                      </a>
+                      </Link>
           </li>
          <ItemsList />
 
