@@ -10,7 +10,7 @@ const alertaContext = useContext(AlertaContext);
 const { alerta, mostrarAlerta } = alertaContext;
 
 const authContext = useContext(AuthContext);
-const { mensaje, autenticado, registrarUsuario } = authContext;
+const { mensaje, autenticado, registrarUsuario, cargando } = authContext;
 
 //En caso de que el usuario se haya autenticado o registrado o sea un registro duplicado
 useEffect(() => {
@@ -45,7 +45,6 @@ const onChange = e => {
 // Cuando el usuario quiere iniciar sesión
 const onSubmit = e => {
   e.preventDefault();
-
   // Validar que no haya campos vacios
   if (
     name.trim() === "" ||
@@ -145,12 +144,13 @@ return (
           </div>
 
           <div className="campo-form">
-            <input
+            <button
               type="submit"
               className="btn btn-primario btn-block"
-              value="REGISTER"
               onChange={onChange}
-            />
+              disabled={cargando}>
+            {cargando ? "Registering..." : "Register"}
+            </button>
           </div>
         </form>
         <Link to={"/"} className="btn btn-primario btn-block">

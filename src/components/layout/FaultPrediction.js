@@ -80,17 +80,10 @@ const FaultPrediction = (props) => {
 
 
   // console.log("getMachineCondition=-=>", machineConditionData)
-  // if (faultTableData) {
-
-  //   console.log("faultTableData======>", faultTableData["CHW FR, L/s"])
-  //   for (var k in faultTableData) {
-  //     console.log("faultTableData", k, faultTableData[k])
-  //   }
+  
+  // if (setParams) {
+  //   alert(setParams.msg)
   // }
-  // console.log("setParams====>",setParams)
-  if (setParams) {
-    alert(setParams.msg)
-  }
   return (
     <div className="row">
       <div className="col-md-12 nopadding">

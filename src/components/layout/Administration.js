@@ -3,38 +3,51 @@ import Bar from "../layout/Bar";
 import AuthContext from "../../context/autenticacion/authContext";
 import AddMember from "../auth/AddMember";
 import MembersList from "../auth/MembersList.js";
+import Dashboard from "../layout/Dashboard";
 
-const Administration = (props) => {
+const Administration = () => {
   const authContext = useContext(AuthContext);
-  const { usuario } = authContext; 
-
-
+  const { usuario, usuarioAutenticado } = authContext; 
+  useEffect(() => {
+    usuarioAutenticado();
+    // eslint-disable-next-line
+}, [])
+let name = ' ';
+let admin = false;
+let id = ' ';
+if (usuario){
+  admin = usuario.admin;
+  name = usuario.name;
+  id = usuario._id;
+}
   return (
-    <div className="row">
+    <div className="row nopadding">
     <div className="col-md-12 nopadding">
     <Bar 
     />
     </div>
-    { usuario.admin ? 
-        <div className="col-md-3">
+    <div className="col-md-3 nopadding">
+      <Dashboard 
+      /> 
+      </div> 
+    { admin ? 
+        <div className="col-md-2 nopadding">
       <MembersList
+      id = {id}
       /> 
       </div> :
-       <div className="col-md-3" >
-        <h3> Manage your profile </h3>
-        </div>
+       null
 }
-      <div className="col-md-9">
+      <div className="col-md-7">
         <main>
         <li className="tarea sombra">
-        <p>{ usuario.name }</p>
-        { usuario.admin ? 
+        <p>{ name } : { admin ? <span>Administrator</span> : null } </p>
+        { admin ? 
         <div className="acciones">
-        <p> #Administrator </p>
         <AddMember />
         </div>
         :
-        <p> #User </p>
+        <p> User </p>
         }
          </li>
         </main>

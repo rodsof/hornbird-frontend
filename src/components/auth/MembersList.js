@@ -3,16 +3,16 @@ import authContext from "../../context/autenticacion/authContext";
 import Member from "./Member";
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 
-const MembersList = () => {
+const MembersList = ({id}) => {
    // obtener las tareas del proyecto
    const AuthContext = useContext(authContext);
    const { usuarios, getUsers } = AuthContext;
 
-   useEffect(() => {
+    useEffect(() => {
     getUsers();
     // eslint-disable-next-line
 }, []); 
-
+ 
   return (
     <Fragment>
       <h2 className="itemName"> Members </h2>
@@ -25,7 +25,8 @@ const MembersList = () => {
          >
             <Member
             usuario={usuario} 
-            />
+            currentId = {id}
+            /> 
           </CSSTransition>
             )}
         </TransitionGroup>

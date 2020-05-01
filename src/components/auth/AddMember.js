@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import AlertaContext from "../../context/alertas/alertaContext";
 import AuthContext from "../../context/autenticacion/authContext";
 
-const AddMember = props => { // props viene de react router dom
+const AddMember = () => { // props viene de react router dom
 // extraer los valores del context
 const alertaContext = useContext(AlertaContext);
 const { alerta, mostrarAlerta } = alertaContext;
 
 const authContext = useContext(AuthContext);
-const { mensaje, registrarUsuario } = authContext;
+const { mensaje, agregarUsuario, cargando, getUsers } = authContext;
 
 //En caso de que el usuario se haya autenticado o registrado o sea un registro duplicado
 useEffect(() => {
@@ -19,28 +19,32 @@ useEffect(() => {
   // eslint-disable-next-line
 }, [mensaje]);
 
-// State para iniciar sesión
-const [usuario, guardarUsuario] = useState({
+ // State para iniciar sesión
+/* const [usuario, guardarUsuario] = useState({
   name: "",
   email: "",
   password: "",
   confirm: ""
-});
+}); 
 
 // extraer de usuario
 const { name, email, password, confirm } = usuario;
-
 const onChange = e => {
   guardarUsuario({
     ...usuario,
     [e.target.name]: e.target.value
   });
-};
+};  */
  
 // Cuando el usuario quiere iniciar sesión
 const onSubmit = e => {
   e.preventDefault();
-
+  const form = e.currentTarget;
+  const formData = new FormData(form);
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const confirm = formData.get("confirm");
   // Validar que no haya campos vacios
   if (
     name.trim() === "" ||
@@ -68,20 +72,20 @@ const onSubmit = e => {
   }
 
   // Pasarlo al action
-  registrarUsuario({
+  agregarUsuario({
     name,
     email,
     password
   });
+  getUsers();
 };
  
 return (
-  <div className="row">
+  <div className="col">
     {alerta ? (
         <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div>
       ) : null}
-
-        <h1> ADD MEMBER </h1>
+  <h1> ADD MEMBER </h1>
 
         <form 
         onSubmit={onSubmit}>
@@ -91,9 +95,9 @@ return (
               type="text"
               id="name"
               name="name"
-              placeholder="Your Name"
-              value={name}
-              onChange={onChange}
+              placeholder="Name"
+              //value={name}
+              //onChange={onChange}
             />
           </div>
 
@@ -103,9 +107,9 @@ return (
               type="email"
               id="email"
               name="email"
-              placeholder="Your Email"
-              value={email}
-              onChange={onChange}
+              placeholder="Email"
+              //value={email}
+              //onChange={onChange}
 />
           </div>
 
@@ -115,9 +119,9 @@ return (
               type="password"
               id="password"
               name="password"
-              placeholder="Your Password"
-              value={password}
-              onChange={onChange}
+              placeholder=" Password"
+              //value={password}
+             // onChange={onChange}
 />
           </div>
 
@@ -128,17 +132,17 @@ return (
               id="confirm"
               name="confirm"
               placeholder="Repeat Password"
-              onChange={onChange}
+              //onChange={onChange}
             />
           </div>
 
           <div className="campo-form">
-            <input
+            <button
               type="submit"
               className="btn btn-primario btn-block"
-              value="Add Member"
-              onChange={onChange}
-            />
+              disabled={cargando}>
+            {cargando ? "Registering..." : "Add member"}
+            </button>
           </div>
         </form>
       </div>

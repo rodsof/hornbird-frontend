@@ -102,8 +102,9 @@ const EnergyDashboard = () => {
         <div className="col-3">
         <div className="row nopadding">
         <StatsCard 
-          statsValue={energy.todayEnergy}
-          statsText="Energy This Day"
+          statsValue= {energy.todayEnergy}
+          unit = "KW-Hr"
+          statsText="Energy Today"
           bg="success"
           bigIcon={<i className="pe-7s-graph1 text-danger" />}
           statsIcon={<i className="fa fa-clock-o" />}
@@ -113,6 +114,7 @@ const EnergyDashboard = () => {
           <div className="row nopadding">
            <StatsCard 
           statsValue={energy.weeklyEnergy}
+          unit = "KW-Hr"
           statsText="Energy This Week"
           bg="info"
           bigIcon={<i className="pe-7s-graph1 text-danger" />}
@@ -123,6 +125,7 @@ const EnergyDashboard = () => {
           <div className="row nopadding">
           <StatsCard 
           statsValue={energy.monthlyEnergy}
+          unit = "KW-Hr"
           statsText="Energy This Month"
           bg="danger"
           bigIcon={<i className="pe-7s-graph1 text-danger" />}
@@ -163,12 +166,12 @@ const EnergyDashboard = () => {
           stats="Updated 30 minutes ago"
           content={
             <div className="ct">
-                {/* <LineChart
-              //   data={ahucop}
-              //   title="AHU COP"
-              //   color="#FA0000"
-              //   unit=""
-              // /> */}
+                <LineChart
+                data={ahucop}
+                title="AHU COP"
+                color="#FA0000"
+                unit=""
+              />
             </div>
           }
         />

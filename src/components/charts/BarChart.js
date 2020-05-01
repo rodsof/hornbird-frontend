@@ -23,8 +23,8 @@ class BarChart extends React.Component {
         scales: {
           xAxes: [{
             ticks: {
-                max: this.props.max,
-                min: this.props.min
+                autoSkip: true,
+                maxTicksLimit: 14
             }
         }],
           yAxes: [

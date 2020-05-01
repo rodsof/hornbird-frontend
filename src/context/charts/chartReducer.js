@@ -23,7 +23,7 @@ export default (state, action) => {
       return {
         ...state,
         dataset: action.payload
-      };
+      }
       case MACHINE_CONDITION:{
         return{
           ...state,

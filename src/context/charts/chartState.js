@@ -9,6 +9,7 @@ import {
     MACHINE_CONDITION,
     GRAPH_API
 } from '../../types';
+
 const ChartState = props => {
     const initialState = {
         chartsitem: [],
@@ -16,6 +17,8 @@ const ChartState = props => {
         chartselected: null,
         machineConditionData: null,
         graphApiData: null,
+
+
     }
 
     // create dispatch and state
@@ -50,10 +53,10 @@ const ChartState = props => {
                 arr.push({
                     label: date,
                     value: val[0],
-                    threshold:val[1]
+                    threshold: val[1]
                 })
             })
-            
+
             console.log("state of arr=-===>", arr)
             dispatch({
                 type: MACHINE_CONDITION,
@@ -77,6 +80,7 @@ const ChartState = props => {
         }
     }
 
+
     const getDataset = async () => {
         try {
             const result = await clienteAxios.get('/api/dataset');
@@ -94,12 +98,14 @@ const ChartState = props => {
                 chartsitem: state.chartsitem,
                 chartselected: state.chartselected,
                 dataset: state.dataset,
-                machineConditionData: state.machineConditionData,
-                graphApiData: state.graphApiData,
                 getCharts,
                 getDataset,
+                machineConditionData: state.machineConditionData,
+                graphApiData: state.graphApiData,
                 getMachineCondition,
                 getGraphApi
+
+
             }}
         >
             {props.children}

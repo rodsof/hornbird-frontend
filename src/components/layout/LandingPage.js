@@ -12,13 +12,10 @@ const LandingPage = (props) => {
   if(!alarms){
       getAlarms();
   }
-    useEffect(() => {
-        if (autenticado) {
-         props.history.push("/dashboard");
-       } 
+  if(localStorage.getItem("token")){
+    props.history.push("/dashboard");
+  }
 
-       // eslint-disable-next-line
-     }, [autenticado, props.history]); 
     return ( 
         <div className="row">
         <div className="col-12">

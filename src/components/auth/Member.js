@@ -1,16 +1,20 @@
 import React,{ useContext } from 'react';
 import authContext from "../../context/autenticacion/authContext";
 
-const Member = ( {usuario} ) => {
+const Member = ( {usuario,currentId} ) => {
 
     const AuthContext = useContext(authContext);
-    const { getUsers } = AuthContext;
+    const { getUsers, deleteMember } = AuthContext;
 
-const deleteMember = id => {
+const memberDelete = id => {
         deleteMember(id);
         getUsers();
   }
 
+if (usuario._id === currentId ){
+  return null;
+}
+else {
 return (
     <li className="tarea sombra">
     <p> {usuario.name} </p>
@@ -18,11 +22,12 @@ return (
         <button 
         type="button"
          className="btn btn-secundario"
-         onClick= {()=> deleteMember(usuario._id)} >
-          Eliminar
+         onClick= {()=> memberDelete(usuario._id)} >
+          Delete
         </button>
       </div>
     </li>
 );
+}
 }
 export default Member;

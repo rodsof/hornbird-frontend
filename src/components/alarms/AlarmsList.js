@@ -7,15 +7,22 @@ import AlarmsTable from "./AlarmsTable";
 import uuidv4 from 'uuid/v4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import clienteAxios from '../../config/axios';
-
+import Contact from './Contact';
 
 
 function convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
-    return [date.getFullYear(), mnth, day].join("-");
+      var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var secs = date.getSeconds();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = [date.getFullYear(), mnth, day].join("-") + ' ' +hours + ':' + minutes + ' ' + secs + ' ' + ampm;
+    return strTime;
   }
 function calculateAlarms(dataset,a) {
     // Create random array of objects
@@ -32,7 +39,7 @@ function calculateAlarms(dataset,a) {
                 message: "SA Fan Unable to Reach Maximum Frequency",
                 status: "Open",
                 start: convert(dataset[i].date),
-                assignTo: " ",
+                assignTo: null,
                 assignDate: null
             })
         }
@@ -41,7 +48,7 @@ function calculateAlarms(dataset,a) {
                 message: "CHW Valve Not Fully Open",
                 status: "Open",
                 start: convert(dataset[i].date),
-                assignTo: " ",
+                assignTo: null,
                 assignDate: null
             })
         }
@@ -50,7 +57,7 @@ function calculateAlarms(dataset,a) {
                 message: "CHW Valve Not Fully Closed",
                 status: "Open",
                 start: convert(dataset[i].date),
-                assignTo: " ",
+                assignTo: null,
                 assignDate: null
             })
         }
@@ -59,7 +66,7 @@ function calculateAlarms(dataset,a) {
                 message: "SA Fan Unable to Reach Minimum Frequency",
                 status: "Open",
                 start: convert(dataset[i].date),
-                assignTo: " ",
+                assignTo: null,
                 assignDate: null
             })
         }
@@ -68,7 +75,7 @@ function calculateAlarms(dataset,a) {
                 message: "SA Fan Flow Rate Unable to Reach Maximum",
                 status: "Open",
                 start: convert(dataset[i].date),
-                assignTo: " ",
+                assignTo: null,
                 assignDate: null
             })
         }
@@ -77,7 +84,7 @@ function calculateAlarms(dataset,a) {
                 message:  "SA Fan Flow Rate Unable to Reach Minimum",
                 status: "Open",
                 start: convert(dataset[i].date),
-                assignTo: " ",
+                assignTo: null,
                 assignDate: null
             })
         }
@@ -87,7 +94,7 @@ function calculateAlarms(dataset,a) {
                 message:   "OA Damper Unable to Reach Minimum Position",
                 status: "Open",
                 start: convert(dataset[i].date),
-                assignTo: " ",
+                assignTo: null,
                 assignDate: null
             })
         }
@@ -96,7 +103,7 @@ function calculateAlarms(dataset,a) {
                 message:   "OA Damper Unable to Reach Maximum Position",
                 status: "Open",
                 start: convert(dataset[i].date),
-                assignTo: " ",
+                assignTo: null,
                 assignDate: null
             })
     }
@@ -111,14 +118,16 @@ const AlarmsList = (props) => {
     const dataset = props.dataset;
     const authContext = useContext(AuthContext);
     const { usuario } = authContext; 
+
     let newAlarms = calculateAlarms(dataset, alarms);
-    console.log('userss ==>',usuario)
+
     if (alarms.length === 0){
     for (var i = 0 ; i < newAlarms.length ; i++){
         createAlarm({
             message: newAlarms[i].message,
-            start: newAlarms[i].start,
-            status: newAlarms[i].status
+            status: newAlarms[i].status,
+            assignTo: newAlarms[i].assignTo,
+            assignDate: newAlarms[i].assignDate
         });
     } 
     getAlarms();
@@ -135,29 +144,10 @@ const handleClick = alarmId => {
         }    // execute it one time to not render every time the component
     }, 3600000);
   
-    const handleAssigment = async event => {
-        event.preventDefault();
-        const email = event.currentTarget.value;
-        const index = event.currentTarget.selectedIndex;
-        const name = event.nativeEvent.target[index].text;
-        const message = event.currentTarget.name;
-        const id = event.currentTarget.id;
-        const userName = event.nativeEvent.target[index].id;
-        await clienteAxios.post('/api/alarms', {
-            message: `This alarm was assigned to you:${message}`,
-            email: email,
-            name : name,
-            id : id,
-            userName : userName
-          })
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => console.log(error))
-      };
+    
     return (
         <Col>
-        <StatsCard
+       {/*  <StatsCard
         bigIcon={<i className="pe-7s-graph1 text-danger" />}
         statsText="Alarms"
         bg="danger"
@@ -165,8 +155,8 @@ const handleClick = alarmId => {
         statsIcon={<FontAwesomeIcon icon={ faClock} size="3x" color="white"/> 
     }
         statsIconText="Checked 30 minutes ago"
-      />
-    {alarms.map((alarm) => (
+      /> */}
+    {/* {alarms.map((alarm) => (
         <Alert 
         variant="danger"
         key={uuidv4()}>
@@ -175,32 +165,26 @@ const handleClick = alarmId => {
             {alarm.message}
             { usuario.admin ? 
             <div>
-            <span> {"\n"} Assign to: </span>
-            <select 
-            name={alarm.message}
-            id = {alarm._id}
-            className="btn btn-secundario btn-block"
-            onChange = {handleAssigment}
-            disabled={alarm.assignTo ? true : false} 
-            > 
-             {alarm.assignTo ? <option> Assigned </option>: <option> Select a person</option> }
-            {usuarios.map((usuario) => 
-                <option selected={alarm.assignTo === usuario.name} value={usuario.email} key= {usuario._id} id={usuario.name}> {usuario.name} </option>
-                )}
-            </select>
-            </div> :  alarm.assignTo ? 
-             <div>
-        
+            <span> {"\n"} Assign </span>
+            {alarm.assignTo ? <p>Already assigned to {alarm.assignTo} </p>
+            :
+            <Contact 
+            alarm = {alarm}
+            />
+            }
+            </div> 
+            :
+            <div>
             <button 
             onClick = {()=> handleClick(alarm._id)} 
             className="btn btn-secundario btn-block"
             > 
             DONE
             </button>
-            </div> : null
-            }
-        </Alert>
-    ))}
+            </div> 
+        }
+        </Alert> }
+    ))*/}
             <AlarmsTable 
             alarms={alarms}
             />

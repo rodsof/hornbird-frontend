@@ -10,6 +10,7 @@ import {
     OBTENER_USUARIO,
     OBTENER_USUARIOS,
     LOGIN_ERROR,
+    AGREGAR_USUARIO,
     DELETE_MEMBER,
     LOGIN_EXITOSO,
     CERRAR_SESION } from '../../types';
@@ -27,29 +28,7 @@ const AuthState = props => {
     const [ state, dispatch ] = useReducer(AuthReducer, initialState);
 
     // las funciones
-    const registrarUsuario = async datos => {
-        try {
-            const respuesta = await clienteAxios.post('/api/usuarios',datos);
-
-            dispatch({
-                type: REGISTRO_EXITOSO,
-                payload: respuesta.data
-                
-            });
-
-            // obtener el usuario
-            usuarioAutenticado();
-        } catch (error) {
-            const alerta = {
-                msg: error.response.data.msg,
-                categoria: 'alerta-error'
-            }
-            dispatch({
-                type: REGISTRO_ERROR,
-                payload: alerta
-            })
-        }        
-    }
+    
             // funcion que devuelve el usuario autenticado
             const usuarioAutenticado = async () => {
                 const token = localStorage.getItem('token');
@@ -59,7 +38,7 @@ const AuthState = props => {
         
                 try {
                     const respuesta = await clienteAxios.get('/api/auth');
-                    // console.log(respuesta);
+                    //console.log(respuesta);
                     dispatch({
                         type: OBTENER_USUARIO,
                         payload: respuesta.data.usuario
@@ -73,7 +52,41 @@ const AuthState = props => {
                 }
             }
 
-
+            const registrarUsuario = async datos => {
+                try {
+                    const respuesta = await clienteAxios.post('/api/usuarios',datos);
+        
+                    dispatch({
+                        type: REGISTRO_EXITOSO,
+                        payload: respuesta.data
+                        
+                    });
+        
+                    // obtener el usuario
+                    usuarioAutenticado();
+                } catch (error) {
+                    const alerta = {
+                        msg: error.response.data.msg,
+                        categoria: 'alerta-error'
+                    }
+                    dispatch({
+                        type: REGISTRO_ERROR,
+                        payload: alerta
+                    })
+                }        
+            }
+            const agregarUsuario = async datos => {
+                try {
+                    const respuesta = await clienteAxios.post('/api/usuarios',datos);
+                    console.log(datos);
+                    dispatch({
+                        type: AGREGAR_USUARIO,
+                        payload: datos 
+                    });
+                } catch (error) {
+                    console.log(error);
+                }        
+            }
 const getUsers = async () => {
     const token = localStorage.getItem('token');
     if (token){
@@ -93,11 +106,16 @@ const getUsers = async () => {
 }
 
 // delete memmber
-const deleteMember = id => {
-    dispatch({
-        type: DELETE_MEMBER,
-        payload: id
-    })
+const deleteMember = async id => {
+    try {
+        await clienteAxios.delete(`/api/usuarios/${id}`);
+        dispatch({
+            type: DELETE_MEMBER,
+            payload: id
+        })
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 // cuando el usuario inicia sesion
@@ -136,12 +154,13 @@ const deleteMember = id => {
         <AuthContext.Provider
         value = {{
             token: state.token,
-            autenticado: state.autenticado,
+            autenticado: state.usuario,
             usuario: state.usuario,
             usuarios: state.usuarios,
             mensaje: state.mensaje,
             cargando: state.cargando,
             registrarUsuario,
+            agregarUsuario,
             usuarioAutenticado,
             getUsers,
             deleteMember,

@@ -5,6 +5,7 @@ import {
     OBTENER_USUARIOS,
     DELETE_MEMBER,
     LOGIN_ERROR,
+    AGREGAR_USUARIO,
     LOGIN_EXITOSO,
     CERRAR_SESION} from '../../types';
     
@@ -48,6 +49,11 @@ import {
                 return {
                     ...state,
                     usuarios: action.payload
+                }
+            case AGREGAR_USUARIO:
+                return{
+                    ...state,
+                usuarios: [action.payload, ...state.usuarios],
                 }
             default:
                 return state;

@@ -12,36 +12,40 @@ const SignIn = (props) => {
    const authContext = useContext(AuthContext);
    const { mensaje, autenticado, iniciarSesion} = authContext; 
 
+  
     //En caso de que el password o usuario no existe
    useEffect(() => {
      if (autenticado) {
       props.history.push("/dashboard");
     } 
-    if (mensaje) {
+     if (mensaje) {
       mostrarAlerta(mensaje.msg, mensaje.categoria);
-    }
+    } 
     // eslint-disable-next-line
   }, [autenticado, mensaje, props.history]); 
   
   //State para iniciar sesion
-  const [usuario, guardarUsuario] = useState({
+  /* const [usuario, guardarUsuario] = useState({
     email: "",
     password: ""
-  });
+  }); */
 
   //extraer de usuario
-  const { email, password } = usuario;
-  const onChange = e => {
+  //const { email, password } = usuario;
+  /* const onChange = e => {
     guardarUsuario({
       ...usuario,
       [e.target.name]: e.target.value // la copia de usuario es para q lo q este en el otro campo no se reescriba
     });
-  };
+  }; */
 
   // cuando el usuario quiere iniciar sesion
   const onSubmit = e => {
     e.preventDefault();
-
+    const form = e.currentTarget;
+  const formData = new FormData(form);
+  const email = formData.get("email");
+  const password = formData.get("password");
     // validar que no haya campos vacios
     if (email.trim() === '' || password.trim() === ''){
       mostrarAlerta('Please complete all fields','alerta-error');
@@ -70,8 +74,8 @@ const SignIn = (props) => {
               id="email"
               name="email"
               placeholder="Your Email"
-              value={email}
-              onChange={onChange}
+            /*   value={email}
+              onChange={onChange} */
             />
           </div>
           <div className="campo-form">
@@ -81,8 +85,8 @@ const SignIn = (props) => {
               id="password"
               name="password"
               placeholder="Your Password"
-              value={password}
-              onChange={onChange}
+              /* value={password}
+              onChange={onChange} */
             />
           </div>
           <div className="campo-form">
