@@ -39,7 +39,10 @@ export class StatsCard extends Component {
           </Row>
           <div className="footer">
             <hr />
-            Change {this.props.amount} %
+            { !isNaN(this.props.amount)  ?
+            <span>Change {this.props.amount} %</span>
+            :
+            null }
             <hr />
             <div className="stats">
               {this.props.statsIcon} {this.props.statsIconText}
