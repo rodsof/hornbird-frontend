@@ -652,8 +652,8 @@ iframe {
   margin-right: 4px;
 }
   .card-stats .numbers p {
-    font-size: 2em;
-    text-align: right;
+    font-size: 1.5em;
+    text-align: auto;
    }
    .quatro {
      color: white;
