@@ -137,7 +137,7 @@ const FaultPrediction = (props) => {
               />
             </div> */}
 
-            <div className="ct-chart" style={{ width: "500px", alignSelf: "flex-end", padding: "30px", margin: "30px" }}>
+            <div className="ct-chart" style={{ width: "700px", alignSelf: "flex-end", padding: "30px", margin: "30px" }}>
 
               <LineChart
                 // data={[{ label: "jan", value: 30 }, { label: "feb", value:60 },{ label: "mar", value: 90 }, { label: "apr", value: 150 }]}
@@ -149,8 +149,9 @@ const FaultPrediction = (props) => {
                 // min={1}
                 unit="kWh"
               />
+            <br />
 
-              <h5 style={{ marginLeft: '200px' }}>Date / Time</h5>
+              <h5 style={{ marginLeft: '250px' }}>Date / Time</h5>
             </div>
             <br />
             <br />

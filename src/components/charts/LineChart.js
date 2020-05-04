@@ -17,6 +17,8 @@ class LineChart extends React.Component {
       this.myChart = new Chart(this.chartRef.current, {
         type: 'line',
         options: {
+          responsive: true,
+
           scales: {
             xAxes: [
               {
@@ -56,7 +58,7 @@ class LineChart extends React.Component {
     }
   
     render() {
-      return <canvas ref={this.chartRef} />;
+      return <canvas ref={this.chartRef} style={{height:"200px",width:"300px"}} />;
     }
   }
 

@@ -93,15 +93,17 @@ const ItemsList = () => {
            <li>
         </li> 
         <li className="sub-menu">
-        <a className="btn btn-primario btn-block"> 
-          <div class="dropdownai">
-              AI Intelligence 
-            <div class="dropdown-content">
-              <a href="fault-prediction">Fault Predictions</a>
-              <a href="energy-optimization">Energy Optimization</a>
-            </div>
-          </div>
-          </a>
+        <a className="btn btn-primario btn-block"> Artificial Intelligence
+        </a>
+
+          {/* <div class="dropdownai"> */}
+              {/* AI Intelligence */}
+            {/* <div class="dropdown-content"> */}
+              <a href="fault-prediction" className="btn btn-primario btn-block">Fault Predictions</a>
+              <a href="energy-optimization" className="btn btn-primario btn-block">Energy Optimization</a>
+            {/* </div> */}
+          {/* </div> */}
+          {/* </a> */}
         </li> 
 
         </ul>
