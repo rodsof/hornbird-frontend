@@ -1,12 +1,12 @@
 import React, {  useContext,  useState } from "react";
 import chartContext from "../../context/charts/chartContext";
-import {Dropdown, Row, Col, Container } from "react-bootstrap";
+import {Dropdown, Row, Col } from "react-bootstrap";
 import LineChart from "./LineChart";
 import BarChart from "./BarChart";
 import Card from "./Card";
 import uuidv4 from 'uuid/v4';
 import ChartTable from "./ChartTable";
-
+import axios from 'axios';
 function convert(str) {
   var date = new Date(str),
     mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -14,10 +14,10 @@ function convert(str) {
   return [date.getFullYear(), mnth, day].join("-");
 }
 // Data generation
-function getRandomArray(dataset, title) {
-  // Create random array of objects
+function getArray(dataset, title) {
+
   let data = [];
-  let delivering = false;
+  let delivering = true;
   if (!delivering) {
     for (var i = 0; i < dataset.length; i++) {
       if (title === "CHW TIN") {
@@ -69,6 +69,7 @@ function getRandomArray(dataset, title) {
       }
     }
   } else {
+    // generate random data
     let dates = getRandomDateArray(15);
     for (var i = 0; i < dates.length; i++) {
       data.push({
@@ -76,6 +77,8 @@ function getRandomArray(dataset, title) {
         value: Math.round(20 + 80 * Math.random())
       });
     }
+    console.log(data);
+     axios.post('http://localhost:4000/api/dataset', data);
   }
   return data;
 }
@@ -132,7 +135,7 @@ return data;
 function getRandomDateArray(numItems) {
   // Create random array of objects (with date)
   let data = [];
-  let baseTime = new Date("2018-05-01T00:00:00").getTime();
+  let baseTime = new Date("2020-03-01T00:00:00").getTime();
   let dayMs = 24 * 60 * 60 * 1000;
   for (var i = 0; i < numItems; i++) {
     data.push({
@@ -149,32 +152,32 @@ function randomFeeds(dataset, category) {
     feeds.push({
       title: "CHW TOUT",
       unit: "ºC",
-      data: getRandomArray(dataset, "CHW TOUT"),
+      data: getArray(dataset, "CHW TOUT"),
       color: "#9368E9"
     });
 
     feeds.push({
       title: "CHW TIN",
       unit: "ºC",
-      data: getRandomArray(dataset, "CHW TIN"),
+      data: getArray(dataset, "CHW TIN"),
       color: "#FFA534"
     });
     feeds.push({
       title: "OA T",
-      data: getRandomArray(dataset, "OA T"),
+      data: getArray(dataset, "OA T"),
       color: "#87CB16",
       unit: "ºC"
     });
     feeds.push({
       title: "SPACE T",
       unit: "ºC",
-      data: getRandomArray(dataset, "SPACE T"),
+      data: getArray(dataset, "SPACE T"),
       color: "cd0000"
     });
     feeds.push({
       title: "SA T",
       unit: "ºC",
-      data: getRandomArray(dataset, "SA T"),
+      data: getArray(dataset, "SA T"),
       color: "#1DC7EA"
     });
   }
@@ -182,7 +185,7 @@ function randomFeeds(dataset, category) {
     feeds.push({
       title: "SA DUCT ST PRESSURE",
       unit: "Pa",
-      data: getRandomArray(dataset, "SA DUCT ST PRESSURE"),
+      data: getArray(dataset, "SA DUCT ST PRESSURE"),
       color: "#cd0000"
     });
   }
@@ -190,13 +193,13 @@ function randomFeeds(dataset, category) {
     feeds.push({
       title: "Space RH",
       unit: "RH",
-      data: getRandomArray(dataset, "Space RH"),
+      data: getArray(dataset, "Space RH"),
       color: "#cd0000"
     });
     feeds.push({
       title: "OAT RH",
       unit: "RH",
-      data: getRandomArray(dataset, "OAT RH"),
+      data: getArray(dataset, "OAT RH"),
       color: "#cd0000"
     });
   }
@@ -280,8 +283,7 @@ if (selectedIndex!== null) {
   }
 else {
   return (
-    <div className="content">
-        <Container fluid>
+    <div className="row nopadding">
       <Dropdown>
     {category === "TEMPERATURE" ? <Dropdown.Toggle variant="info" id="dropdown-basic">Temperature  </Dropdown.Toggle>
     : category === "PRESSURE" ? <Dropdown.Toggle variant="info" id="dropdown-basic">Pressure  </Dropdown.Toggle>
@@ -324,7 +326,6 @@ else {
                          ))}
                          </Row>
                       : null}
-              </Container>
               </div>     
                   
   );

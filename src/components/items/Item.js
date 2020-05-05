@@ -1,7 +1,7 @@
 import React,{ useContext } from 'react';
 import itemContext from '../../context/items/itemContext';
 import chartContext from '../../context/charts/chartContext';
-const Item = ({item}) => {
+const Item = ({item,ai}) => {
 
      // Obtener el state del formulario
   const itemsContext = useContext(itemContext);
@@ -18,22 +18,23 @@ const Item = ({item}) => {
   }
     return ( 
       <li className="sub-menu">
-        { item.href === "#" ? 
+        { item.href === "#" && !ai ? 
       <a 
             href="#"
             className="btn btn-primario btn-block" 
             onClick = {()=> selectItem(item._id)}>
                 {item.name}
-            </a>
-:
+            </a> 
+         : null }
 
-<a 
-className="btn btn-primario btn-block" 
+{ item.href !== "#" && ai ?
+      <a 
+     className="btn btn-primario btn-block" 
 href={item.href}
     >
       {item.name}
 </a>
-
+: null
 }
     </li>
       
