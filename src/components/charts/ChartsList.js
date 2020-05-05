@@ -17,9 +17,49 @@ function convert(str) {
 function getArray(dataset, title) {
 
   let data = [];
-  let delivering = true;
+  let delivering = false;
   if (!delivering) {
     for (var i = 0; i < dataset.length; i++) {
+        // unify same dates
+      let repeated = false;
+      if (data){
+        for(var j = 0 ; j<data.length ; j++){
+          if(data[j].label === convert(dataset[i].date)){
+            if (title === "CHW TIN"){
+              data[j].value = data[j].value + dataset[i].chwtin;
+              repeated = true;
+            }
+            if (title === "CHW TOUT") {
+              data[j].value = data[j].value + dataset[i].chwtout;
+              repeated = true;
+            }
+            if (title === "SA T") {
+              data[j].value = data[j].value + dataset[i].sat;
+              repeated = true;
+            }
+            if (title === "SPACE T") {
+              data[j].value = data[j].value + dataset[i].spacet;
+              repeated = true;  
+            }   if (title === "OA T") {
+              data[j].value = data[j].value + dataset[i].oat;
+              repeated = true;
+            }
+            if (title === "SA DUCT ST PRESSURE") {
+              data[j].value = data[j].value + dataset[i].saductstpressure;
+              repeated = true;
+            }
+            if (title === "OAT RH") {
+              data[j].value = data[j].value + dataset[i].oatrh;
+              repeated = true;
+            }
+            if (title === "Space RH") {
+              data[j].value = data[j].value + dataset[i].spacerh;
+              repeated = true; 
+            }
+          }
+      }
+    }
+    if(!repeated){
       if (title === "CHW TIN") {
         data.push({
           label: convert(dataset[i].date),
@@ -30,54 +70,75 @@ function getArray(dataset, title) {
         data.push({
           label: convert(dataset[i].date),
           value: dataset[i].chwtout
-        }); // falta agregar para energy
+        });  
       }
       if (title === "SA T") {
         data.push({
           label: convert(dataset[i].date),
           value: dataset[i].sat
-        }); // falta agregar para energy
+        });  
       }
       if (title === "SPACE T") {
         data.push({
           label: convert(dataset[i].date),
           value: dataset[i].spacet
-        }); // falta agregar para energy
+        });  
       }   if (title === "OA T") {
         data.push({
           label: convert(dataset[i].date),
           value: dataset[i].oat
-        }); // falta agregar para energy
+        });  
       }
       if (title === "SA DUCT ST PRESSURE") {
         data.push({
           label: convert(dataset[i].date),
           value: dataset[i].saductstpressure
-        }); // falta agregar para energy
+        });  
       }
       if (title === "OAT RH") {
         data.push({
           label: convert(dataset[i].date),
           value: dataset[i].oatrh
-        }); // falta agregar para energy
+        });  
       }
       if (title === "Space RH") {
         data.push({
           label: convert(dataset[i].date),
           value: dataset[i].spacerh
-        }); // falta agregar para energy
+        });  
       }
+    }
     }
   } else {
     // generate random data
     let dates = getRandomDateArray(15);
     for (var i = 0; i < dates.length; i++) {
       data.push({
-        label: dates[i].time,
-        value: Math.round(20 + 80 * Math.random())
+        chwtin: Math.round(10 + 80 * Math.random()),
+        chwtout:  Math.round(10 + 80 * Math.random()),
+        chwvalveposition:  Math.round(20 + 80 * Math.random()),
+        chwfr:  Math.round(20 + 80 * Math.random()),
+        safanfrequency:  Math.round(20 + 80 * Math.random()),
+        rafanfrequency:  Math.round(20 + 80 * Math.random()),
+        sat:  Math.round(20 + 80 * Math.random()),safr:  Math.round(20 + 80 * Math.random()),
+        saductstpressure:  Math.round(20 + 80 * Math.random()),
+        safanfrequency:  Math.round(20 + 80 * Math.random()),
+        spacet:  Math.round(20 + 80 * Math.random()),
+        ahucop:Math.round(20 + 80 * Math.random()),
+      totalpower: Math.round(20 + 80 * Math.random()),
+      energymonthly:  Math.round(200000 + 80 * Math.random()),
+        oat:  Math.round(20 + 80 * Math.random()),
+        spacerh:  Math.round(20 + 80 * Math.random()),
+        oatrh:  Math.round(20 + 80 * Math.random()),
+        vav1fr:  Math.round(20 + 80 * Math.random()),
+        vav2fr:  Math.round(20 + 80 * Math.random()),
+        vav3fr:  Math.round(20 + 80 * Math.random()),
+        vav4fr:  Math.round(20 + 80 * Math.random()),
+        oafr:  Math.round(20 + 80 * Math.random()),
+        oadamperopen:  Math.round(20 + 80 * Math.random()),
+        space:  Math.round(20 + 80 * Math.random())
       });
     }
-    console.log(data);
      axios.post('http://localhost:4000/api/dataset', data);
   }
   return data;
@@ -139,7 +200,7 @@ function getRandomDateArray(numItems) {
   let dayMs = 24 * 60 * 60 * 1000;
   for (var i = 0; i < numItems; i++) {
     data.push({
-      time: new Date(baseTime + i * dayMs).toLocaleDateString(),
+      time: new Date(baseTime + i * dayMs),
       value: Math.round(20 + 80 * Math.random())
     });
   }

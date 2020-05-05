@@ -2,11 +2,9 @@ import React,{useContext, useEffect} from "react";
 import Dashboard from "../layout/Dashboard";
 import Bar from "../layout/Bar";
 import ChartsList from "../charts/ChartsList";
-import AlarmsList from "../alarms/AlarmsList";
 import AuthContext from "../../context/autenticacion/authContext";
 import itemContext from "../../context/items/itemContext";
 import DashboardContext from "../../context/dashboard/dashboardContext";
-import EnergyDashboard from "./EnergyDashboard";
 import chartContext from "../../context/charts/chartContext";
 import BarChart from "../charts/BarChart"
 

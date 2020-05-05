@@ -40,23 +40,7 @@ function App() {
               <AuthState>
                 <Router>
                   <Switch>
-                    {/* <Route exact path="/" component={LandingPage} />
-                    <RutaPrivada
-                      exact
-                      path="/dashboard"
-                      component={DashboardSummary}
-                    />
-                    <Route exact path="/sign-in" component={SignIn} />
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/fault-prediction" component={FaultPrediction} />
-                    <Route exact path="/energy-optimization" component={EnergyOptimization} />
-
-                    <RutaPrivada
-                      exact
-                      path="/admin"
-                      component={Administration}
-                    /> */}
-
+    
                     <Route exact path="/" component={LandingPage} />
                     <RutaPrivada
                       exact

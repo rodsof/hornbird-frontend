@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
 import AuthContext from "../../context/autenticacion/authContext";
 import alarmContext from "../../context/alarms/alarmContext";
-import {  Alert , Col} from "react-bootstrap";
+import {   Col} from "react-bootstrap";
 import AlarmsTable from "./AlarmsTable";
-import uuidv4 from 'uuid/v4';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
-import Contact from './Contact';
+
 
 
 function convert(str) {
@@ -27,11 +24,14 @@ function calculateAlarms(dataset,a) {
     // Create random array of objects
     let alarms = [];
     var today = new Date();
-    if (a.length>0)
+    if (a.length>0){
     var last = a[a.length - 1].start;
-    else
+    }
+    else{
     var last = today;
+    }
     for (var i=0 ; i < dataset.length ; i++){
+
         if (convert(dataset[i].date) > convert(last)){
         if ( dataset[i].saductstpressure <= 90 &&  dataset[i].safanfrequency < 60 ){
              alarms.push({
@@ -112,15 +112,13 @@ function calculateAlarms(dataset,a) {
     }
 const AlarmsList = (props) => {
  
-    const { alarms, createAlarm, getAlarms } = useContext(alarmContext);
-    const usuarios = props.usuarios;
+    const { createAlarm } = useContext(alarmContext);
+    const  alarms = props.alarms;
     const dataset = props.dataset;
-    const authContext = useContext(AuthContext);
-    const { usuario } = authContext; 
 
     let newAlarms = calculateAlarms(dataset, alarms);
-
-    if (alarms.length === 0){
+    if (newAlarms.length > 0){
+        console.log(" a ver cuantas ves");
     for (var i = 0 ; i < newAlarms.length ; i++){
         createAlarm({
             message: newAlarms[i].message,
@@ -129,11 +127,7 @@ const AlarmsList = (props) => {
             assignDate: newAlarms[i].assignDate
         });
     } 
-    getAlarms();
 }
-const handleClick = alarmId => {
-    console.log(alarmId);
-  }
 
    
     // run the function on page init 
@@ -146,44 +140,6 @@ const handleClick = alarmId => {
     
     return (
         <Col>
-       {/*  <StatsCard
-        bigIcon={<i className="pe-7s-graph1 text-danger" />}
-        statsText="Alarms"
-        bg="danger"
-        statsValue={alarms.length}
-        statsIcon={<FontAwesomeIcon icon={ faClock} size="3x" color="white"/> 
-    }
-        statsIconText="Checked 30 minutes ago"
-      /> */}
-    {/* {alarms.map((alarm) => (
-        <Alert 
-        variant="danger"
-        key={uuidv4()}>
-            {convert(alarm.start)}
-            <span>{"\n"}</span>
-            {alarm.message}
-            { usuario.admin ? 
-            <div>
-            <span> {"\n"} Assign </span>
-            {alarm.assignTo ? <p>Already assigned to {alarm.assignTo} </p>
-            :
-            <Contact 
-            alarm = {alarm}
-            />
-            }
-            </div> 
-            :
-            <div>
-            <button 
-            onClick = {()=> handleClick(alarm._id)} 
-            className="btn btn-secundario btn-block"
-            > 
-            DONE
-            </button>
-            </div> 
-        }
-        </Alert> }
-    ))*/}
             <AlarmsTable 
             alarms={alarms}
             />
