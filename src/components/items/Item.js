@@ -18,11 +18,23 @@ const Item = ({item}) => {
   }
     return ( 
       <li className="sub-menu">
+        { item.href === "#" ? 
       <a 
+            href="#"
             className="btn btn-primario btn-block" 
             onClick = {()=> selectItem(item._id)}>
                 {item.name}
             </a>
+:
+
+<a 
+className="btn btn-primario btn-block" 
+href={item.href}
+    >
+      {item.name}
+</a>
+
+}
     </li>
       
      );

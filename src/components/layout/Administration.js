@@ -4,21 +4,14 @@ import AuthContext from "../../context/autenticacion/authContext";
 import AddMember from "../auth/AddMember";
 import MembersList from "../auth/MembersList.js";
 import Dashboard from "../layout/Dashboard";
-import itemContext from "../../context/items/itemContext";
 
-const Administration = (props) => {
+const Administration = () => {
   const authContext = useContext(AuthContext);
   const { usuario, usuarioAutenticado } = authContext; 
-  const itemsContext = useContext(itemContext);
-  const { item } = itemsContext;
   useEffect(() => {
     usuarioAutenticado();
-    //  if (item){
-    //   props.history.push("/");
-    //   }
     // eslint-disable-next-line
-}, [item])
-
+}, [])
 let name = ' ';
 let admin = false;
 let id = ' ';

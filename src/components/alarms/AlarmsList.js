@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import AuthContext from "../../context/autenticacion/authContext";
 import alarmContext from "../../context/alarms/alarmContext";
-import StatsCard from "../layout/StatsCard";
 import {  Alert , Col} from "react-bootstrap";
 import AlarmsTable from "./AlarmsTable";
 import uuidv4 from 'uuid/v4';

@@ -1,3 +1,4 @@
+
 /*!
 
 =========================================================
@@ -24,25 +25,18 @@ export class StatsCard extends Component {
       <div className={`card card-stats bg-${this.props.bg}`}>
         <div className="content">
           <Row>
-            <Col xs={6}>
-              <div className="numbers">
-                <p>{this.props.statsText1}</p>
-                <p> {this.props.statsValue1} {this.props.unit} </p>
-              </div>
+            <Col xs={5}>
+     
             </Col>
-            <Col xs={6}>
+            <Col xs={7}>
               <div className="numbers">
-                <p>{this.props.statsText2}</p>
-                <p> {this.props.statsValue2} {this.props.unit} </p>
+                <p>{this.props.statsText}</p>
+                <p> {this.props.statsValue} {this.props.unit} </p>
+                
               </div>
             </Col>
           </Row>
           <div className="footer">
-            <hr />
-            { !isNaN(this.props.amount) && isFinite(this.props.amount) ?
-            <span>Change: {this.props.amount} %</span>
-            :
-            null }
             <hr />
             <div className="stats">
               {this.props.statsIcon} {this.props.statsIconText}

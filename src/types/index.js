@@ -1,6 +1,5 @@
 export const CHARTS_ITEM = "CHARTS_ITEM";
 export const CURRENT_ITEM = "CURRENT_ITEM";
-export const DELETE_ITEM ="DELETE_ITEM";
 export const CURRENT_CHART = "CURRENT_CHART";
 export const GET_ITEMS = "GET_ITEMS";
 export const GET_DATASET = "GET_MEDITIONS";
@@ -23,3 +22,12 @@ export const CREATE_ALARM = 'CREATE_ALARM';
 
 export const SHOW_DASHBOARD = 'SHOW_DASHBOARD';
 export const HIDE_DASHBOARD = 'HIDE_DASHBOARD';
+
+
+export const GET_FAULT_TABLE = 'GET_FAULT_TABLE';
+
+export const MACHINE_CONDITION="MACHINE_CONDITION"
+export const GRAPH_API="GRAPH_API"
+export const ENERGY_OPT_TABLE="ENERGY_OPT_TABLE"
+
+export const SET_PARAMETERS="SET_PARAMETERS"

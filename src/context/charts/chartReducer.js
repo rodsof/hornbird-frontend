@@ -1,7 +1,9 @@
 import { 
     CHARTS_ITEM, 
     CURRENT_CHART,
-    GET_DATASET
+    GET_DATASET,
+    MACHINE_CONDITION,
+    GRAPH_API
 } from "../../types";
 
 export default (state, action) => {
@@ -21,6 +23,18 @@ export default (state, action) => {
       return {
         ...state,
         dataset: action.payload
+      }
+      case MACHINE_CONDITION:{
+        return{
+          ...state,
+          machineConditionData:action.payload
+        }
+      }
+      case GRAPH_API:{
+        return{
+          ...state,
+          graphApiData:action.payload
+        }
       }
     default:
       return state;

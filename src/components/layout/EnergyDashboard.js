@@ -16,64 +16,32 @@ function convert(str) {
 
 
  function getEnergyMonthly(dataset){
-  let thisYearEnergy=0;
-  let lastYearEnergy = 0;
    let monthlyEnergyAcum=0;
-   let lastMonthEnergy = 0;
    let todayEnergy=0;
    let weeklyEnergyAcum = 0;
-   let lastWeekEnergy = 0;
    var today = new Date();
    var currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
    for (var i = 0 ; i < dataset.length ; i++){
     var date = new Date(dataset[i].date);
 
    if (convert(dataset[i].date) === convert(currentDate)){
-    todayEnergy =  dataset[i].energymonthly;
+    todayEnergy =  dataset[i].energymonthly 
    }
   //today.getmonth returns month-1
   if (date.getMonth() === today.getMonth()){
       monthlyEnergyAcum =  monthlyEnergyAcum + dataset[i].energymonthly;
   }
-  if(date.getMonth() === today.getMonth() -1 ){
-    lastMonthEnergy = lastMonthEnergy + dataset[i].energymonthly;
-  }
-var now = moment();
+  var now = moment();
 var input = moment(dataset[i].date);
-var lastWeek = moment().subtract(7,'days');
-var lastYear = moment().subtract(1,'years');
-var isThisWeek = (now.isoWeek() === input.isoWeek());
-var isLastWeek = input.isoWeek() == lastWeek.isoWeek();
-var isThisYear = (now.isoWeekYear() === input.isoWeekYear());
-var isLastYear = (now.isoWeekYear() === lastYear.isoWeekYear());
-
+var isThisWeek = (now.isoWeek() === input.isoWeek())
 if ( isThisWeek) {
    weeklyEnergyAcum = weeklyEnergyAcum + dataset[i].energymonthly;
 }
-if (isLastWeek){
-  lastWeekEnergy = lastWeekEnergy + dataset[i].energymonthly;
 }
-if (isThisYear){
-  thisYearEnergy = thisYearEnergy + dataset[i].energymonthly;
-}
-if(isLastYear){
-  lastYearEnergy = lastYearEnergy + dataset[i].energymonthly;
-}
-}
-let yearlyAmount = thisYearEnergy/lastYearEnergy;
-let monthlyAmount = monthlyEnergyAcum/lastMonthEnergy;
-let weeklyAmount = weeklyEnergyAcum/lastWeekEnergy;
-console.log(yearlyAmount);
 let data = {
-  thisYearEnergy : thisYearEnergy,
-  lastYearEnergy : lastYearEnergy,
+  todayEnergy : todayEnergy,
   monthlyEnergy : monthlyEnergyAcum,
-  lastMonthEnergy : lastMonthEnergy,
-  weeklyEnergy : weeklyEnergyAcum,
-  lastWeekEnergy : lastWeekEnergy,
-  yearlyAmount : yearlyAmount,
-  monthlyAmount :  monthlyAmount,
-  weeklyAmount : weeklyAmount
+  weeklyEnergy : weeklyEnergyAcum
 }
 return data;
   }
@@ -134,26 +102,20 @@ const EnergyDashboard = () => {
         <div className="col-3">
         <div className="row nopadding">
         <StatsCard 
-          statsValue2= {energy.thisYearEnergy}
-          statsValue1= {energy.lastYearEnergy}
+          statsValue= {energy.todayEnergy}
           unit = "KW-Hr"
-          statsText2="This Year"
-          statsText1="Last Year"
-          amount={energy.yearlyAmount}
+          statsText="Energy Today"
           bg="success"
           bigIcon={<i className="pe-7s-graph1 text-danger" />}
           statsIcon={<i className="fa fa-clock-o" />}
-          statsIconText="This Year"
+          statsIconText="This Day"
           />
           </div>
           <div className="row nopadding">
            <StatsCard 
-          statsValue1={energy.lastWeekEnergy}
-          statsValue2={energy.weeklyEnergy}
+          statsValue={energy.weeklyEnergy}
           unit = "KW-Hr"
-          statsText1="Last Week"
-          statsText2="This Week"
-          amount={energy.weeklyAmount}
+          statsText="Energy This Week"
           bg="info"
           bigIcon={<i className="pe-7s-graph1 text-danger" />}
           statsIcon={<i className="fa fa-clock-o" />}
@@ -162,12 +124,9 @@ const EnergyDashboard = () => {
           </div>
           <div className="row nopadding">
           <StatsCard 
-          statsValue1={energy.lastMonthEnergy}
-          statsValue2={energy.monthlyEnergy}
+          statsValue={energy.monthlyEnergy}
           unit = "KW-Hr"
-          statsText1="Last Month"
-          statsText2="This Month"
-          amount = {energy.monthlyAmount}
+          statsText="Energy This Month"
           bg="danger"
           bigIcon={<i className="pe-7s-graph1 text-danger" />}
           statsIcon={<i className="fa fa-clock-o" />}
