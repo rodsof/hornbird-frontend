@@ -8,6 +8,7 @@ import itemContext from "../../context/items/itemContext";
 import EnergyDashboard from "./EnergyDashboard";
 import chartContext from "../../context/charts/chartContext";
 import DashboardContext from "../../context/dashboard/dashboardContext";
+import alarmsContext from "../../context/alarms/alarmContext";
 
 const DashboardSummary = (props) => {
   const authContext = useContext(AuthContext);
@@ -20,6 +21,8 @@ const DashboardSummary = (props) => {
        const { getDataset, dataset } = chartsContext;
        const dashboardContext = useContext(DashboardContext);
   const { dashboard } = dashboardContext;
+  const alarmContext = useContext(alarmsContext);
+  const {alarms, getAlarms } = alarmContext;
        useEffect(() => {
         usuarioAutenticado();
         // eslint-disable-next-line
@@ -30,6 +33,8 @@ const DashboardSummary = (props) => {
    useEffect(() => {
     getUsers();
     getDataset();
+    if(item && item.name==="Alarms")
+      getAlarms()
     // eslint-disable-next-line
   }, [item]);
   
@@ -67,6 +72,7 @@ const DashboardSummary = (props) => {
         <AlarmsList 
         usuarios={usuarios}
         dataset={dataset}
+        alarms={alarms}
         /> :  name ==="Energy" ? <EnergyDashboard /> : 
         <ChartsList /> 
         }

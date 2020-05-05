@@ -31,8 +31,7 @@ function calculateAlarms(dataset,a) {
     var last = today;
     }
     for (var i=0 ; i < dataset.length ; i++){
-
-        if (convert(dataset[i].date) > convert(last)){
+        if (convert(dataset[i].date) >= convert(last)){
         if ( dataset[i].saductstpressure <= 90 &&  dataset[i].safanfrequency < 60 ){
              alarms.push({
                 message: "SA Fan Unable to Reach Maximum Frequency",
@@ -117,6 +116,7 @@ const AlarmsList = (props) => {
     const dataset = props.dataset;
 
     let newAlarms = calculateAlarms(dataset, alarms);
+
     if (newAlarms.length > 0){
         console.log(" a ver cuantas ves");
     for (var i = 0 ; i < newAlarms.length ; i++){
