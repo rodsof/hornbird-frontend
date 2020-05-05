@@ -12,7 +12,7 @@ const Dashboard = () => {
       <div id="sidebar" className="nav-collapse ">
         <ul className="sidebar-menu">
           <li className="active">
-            <a className="btn btn-primario btn-block" href="#">
+            <a className="btn btn-primario btn-block" href="/">
                           <i className="icon_house_alt"></i>
                           <span>Dashboard</span>
                       </a>

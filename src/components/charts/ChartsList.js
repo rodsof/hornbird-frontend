@@ -1,8 +1,6 @@
 import React, {  useContext,  useState } from "react";
-import itemContext from "../../context/items/itemContext";
 import chartContext from "../../context/charts/chartContext";
-import DashboardContext from "../../context/dashboard/dashboardContext";
-import {Dropdown, Row, Col } from "react-bootstrap";
+import {Dropdown, Row, Col, Container } from "react-bootstrap";
 import LineChart from "./LineChart";
 import BarChart from "./BarChart";
 import Card from "./Card";
@@ -282,7 +280,8 @@ if (selectedIndex!== null) {
   }
 else {
   return (
-    <div className="row nopadding">
+    <div className="content">
+        <Container fluid>
       <Dropdown>
     {category === "TEMPERATURE" ? <Dropdown.Toggle variant="info" id="dropdown-basic">Temperature  </Dropdown.Toggle>
     : category === "PRESSURE" ? <Dropdown.Toggle variant="info" id="dropdown-basic">Pressure  </Dropdown.Toggle>
@@ -325,6 +324,7 @@ else {
                          ))}
                          </Row>
                       : null}
+              </Container>
               </div>     
                   
   );
