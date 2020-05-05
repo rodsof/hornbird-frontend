@@ -7,6 +7,7 @@ import AuthContext from "../../context/autenticacion/authContext";
 import itemContext from "../../context/items/itemContext";
 import EnergyDashboard from "./EnergyDashboard";
 import chartContext from "../../context/charts/chartContext";
+import DashboardContext from "../../context/dashboard/dashboardContext";
 
 const DashboardSummary = (props) => {
   const authContext = useContext(AuthContext);
@@ -17,6 +18,8 @@ const DashboardSummary = (props) => {
 
        const chartsContext = useContext(chartContext);
        const { getDataset, dataset } = chartsContext;
+       const dashboardContext = useContext(DashboardContext);
+  const { dashboard } = dashboardContext;
        useEffect(() => {
         usuarioAutenticado();
         // eslint-disable-next-line
@@ -41,19 +44,22 @@ const DashboardSummary = (props) => {
     props.history.push("/");
   }
   return (
-    <div className="row nopadding">
+    <div className="row">
     <div className="col-md-12 nopadding">
     <Bar 
     usuario={usuario}
     tipo={admin}
     />
     </div>
-        <div className="col-md-2 nopadding">
-      <Dashboard 
-      /> 
-      </div> 
+    {dashboard ?
+      <div className="col-md-3 nopadding">
+        <Dashboard
+        />
+      </div>
+      :
+      null}
   
-       <div className="col-md-10 nopadding">
+       <div className="col-md-9 nopadding">
         <main>
         { !item ?
        <EnergyDashboard />
