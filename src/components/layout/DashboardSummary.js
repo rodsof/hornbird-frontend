@@ -33,8 +33,7 @@ const DashboardSummary = (props) => {
    useEffect(() => {
     getUsers();
     getDataset();
-    if(item && item.name==="Alarms")
-      getAlarms()
+    getAlarms()
     // eslint-disable-next-line
   }, [item]);
   
@@ -57,14 +56,14 @@ const DashboardSummary = (props) => {
     />
     </div>
     {dashboard ?
-      <div className="col-md-3 nopadding">
+      <div className="col-md-2 nopadding">
         <Dashboard
         />
       </div>
       :
       null}
   
-       <div className="col-md-9 nopadding">
+       <div className="col-md-10 nopadding">
         <main>
         { !item ?
        <EnergyDashboard />

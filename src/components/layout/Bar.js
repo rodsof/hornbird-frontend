@@ -40,16 +40,14 @@ const Bar = (props) => {
           </Link>
         </div>
       ) : (
-        <div className="col-5 nopadding">
+        <div className="col-4 nopadding">
           <img src="HBTLogo.png" alt="logo" className="logo" />
         </div>
       )}
       {autenticado ? (
-        <div className="col-4 nopadding">
           <div className="quatro">
             <p>System FDD, Prediction & Energy Optimization</p>
           </div>
-        </div>
       ) : (
         <div className="col-5 nopadding"></div>
       )}
@@ -67,7 +65,6 @@ const Bar = (props) => {
         <div className="col-1 nopadding">
           <button
             className="btn btn-faBars"
-            // ver implementar onclick
           >
             <FontAwesomeIcon icon={faSignOutAlt} size="3x" color="white" />
           </button>
@@ -75,7 +72,7 @@ const Bar = (props) => {
       )}
 
       {!autenticado ? null : tipo ? (
-        <div className="col-1 nopadding">
+        <div className="col-3 nopadding">
           <button className="btn btn-link btn-block">
             <Link to={"/admin"} className="link">
               Administration
@@ -99,7 +96,6 @@ const Bar = (props) => {
         <div className="col-1 nopadding">
           <button
             className="btn btn-faBars"
-            // ver implementar onclick
           >
             <FontAwesomeIcon icon={faSignOutAlt} size="3x" color="white" />
           </button>

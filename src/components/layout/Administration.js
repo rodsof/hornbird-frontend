@@ -4,10 +4,15 @@ import AuthContext from "../../context/autenticacion/authContext";
 import AddMember from "../auth/AddMember";
 import MembersList from "../auth/MembersList.js";
 import Dashboard from "../layout/Dashboard";
+import { Container } from "react-bootstrap";
+import DashboardContext from "../../context/dashboard/dashboardContext";
 
 const Administration = () => {
   const authContext = useContext(AuthContext);
   const { usuario, usuarioAutenticado } = authContext; 
+  const dashboardContext = useContext(DashboardContext);
+  const { dashboard } = dashboardContext;
+
   useEffect(() => {
     usuarioAutenticado();
     // eslint-disable-next-line
@@ -26,10 +31,12 @@ if (usuario){
     <Bar 
     />
     </div>
+    {dashboard ? 
     <div className="col-md-3 nopadding">
       <Dashboard 
       /> 
       </div> 
+      : null }
     { admin ? 
         <div className="col-md-2 nopadding">
       <MembersList

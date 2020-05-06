@@ -1,6 +1,6 @@
 import React, {  useContext,  useState } from "react";
 import chartContext from "../../context/charts/chartContext";
-import {Dropdown, Row, Col } from "react-bootstrap";
+import {Dropdown, Row, Col, Container } from "react-bootstrap";
 import LineChart from "./LineChart";
 import BarChart from "./BarChart";
 import Card from "./Card";
@@ -344,6 +344,8 @@ if (selectedIndex!== null) {
   }
 else {
   return (
+    <main style={{ paddingTop: 20 }} >
+    <Container>
     <div className="row nopadding">
       <Dropdown>
     {category === "TEMPERATURE" ? <Dropdown.Toggle variant="info" id="dropdown-basic">Temperature  </Dropdown.Toggle>
@@ -388,7 +390,8 @@ else {
                          </Row>
                       : null}
               </div>     
-                  
+              </Container>
+              </main>
   );
 
 }

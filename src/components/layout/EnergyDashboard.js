@@ -1,7 +1,7 @@
 import React,{ useContext } from 'react';
 import chartContext from "../../context/charts/chartContext";
 import AuthContext from "../../context/autenticacion/authContext";
-import { Row, Col} from "react-bootstrap";
+import { Row, Container} from "react-bootstrap";
 import Card from "../charts/Card";
 import LineChart from "../charts/LineChart";
 import BarChart from "../charts/BarChart";
@@ -140,7 +140,7 @@ const EnergyDashboard = () => {
       }, 3600000); // every half hour
 
     return ( 
-      <div>
+      <Container>
         <Row>
         <div className="col-3">
         <div className="row nopadding">
@@ -209,7 +209,8 @@ const EnergyDashboard = () => {
         </div>
         </Row>
         <Row>
-        <div className="col-12 nopadding">
+        <div className="col">
+        <div className="row nopadding">
         <Card
           statsIcon="fa fa-history"
           id="chartHours"
@@ -228,8 +229,9 @@ const EnergyDashboard = () => {
           }
         />
         </div>
+        </div>
         </Row>
-  </div>
+  </Container>
      );
 }
  

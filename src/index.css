@@ -10,6 +10,7 @@
   --green: #2d572c; 
   --headingFont:'Roboto', sans-serif;
   --textFont:  'Roboto', sans-serif;
+  height: 100%;
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -19,7 +20,7 @@ html {
   font-size: 80%; 
 }
 body {
-  min-height: 100%;
+  height: 100%;
   background-color: var(--gris1);
   font-size: 16px; 
   font-size: 1.6rem;
@@ -356,6 +357,12 @@ ul {
       width: auto;
       top: 20px;
       right: 10px;
+  }
+  
+}
+@media (max-width:1023px){
+  .quatro {
+    display: none;
   }
 }
 
@@ -1271,14 +1278,16 @@ iframe {
       width: 180px;
   
       height: 100%;
-  
-      position: fixed;
-  
+      
+      min-height: 1000px;
       background: var(--gris2);
   
   }
   
-  
+  aside {
+    display: block;
+    height: 100%;
+}
   
   .nav-collapse.collapse {
   

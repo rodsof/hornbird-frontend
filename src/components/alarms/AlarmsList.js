@@ -3,6 +3,7 @@ import AuthContext from "../../context/autenticacion/authContext";
 import alarmContext from "../../context/alarms/alarmContext";
 import {   Col} from "react-bootstrap";
 import AlarmsTable from "./AlarmsTable";
+import clienteAxios from "../../config/axios";
 
 
 
@@ -20,23 +21,31 @@ function convert(str) {
     var strTime = [date.getFullYear(), mnth, day].join("-") + ' ' +hours + ':' + minutes + ' ' + secs + ' ' + ampm;
     return strTime;
   }
+  
 function calculateAlarms(dataset,a) {
     // Create random array of objects
     let alarms = [];
     var today = new Date();
+    let maxDate;
+
     if (a.length>0){
-    var last = a[a.length - 1].start;
+        for (var j = 0 ; j < a.length ; j++){
+            if (!maxDate || a[j].start > maxDate){
+                maxDate = a[j].start;
+            }
+        }
     }
     else{
-    var last = today;
+        maxDate = today;
     }
     for (var i=0 ; i < dataset.length ; i++){
-        if (convert(dataset[i].date) >= convert(last)){
+        if (convert(dataset[i].date) > convert(maxDate)){
+            console.log(convert(dataset[i].date) +"y "+ convert(maxDate));
         if ( dataset[i].saductstpressure <= 90 &&  dataset[i].safanfrequency < 60 ){
              alarms.push({
                 message: "SA Fan Unable to Reach Maximum Frequency",
                 status: "Open",
-                start: convert(dataset[i].date),
+                start: dataset[i].date,
                 assignTo: null,
                 assignDate: null
             })
@@ -45,7 +54,7 @@ function calculateAlarms(dataset,a) {
             alarms.push({
                 message: "CHW Valve Not Fully Open",
                 status: "Open",
-                start: convert(dataset[i].date),
+                start: dataset[i].date,
                 assignTo: null,
                 assignDate: null
             })
@@ -54,7 +63,7 @@ function calculateAlarms(dataset,a) {
             alarms.push({
                 message: "CHW Valve Not Fully Closed",
                 status: "Open",
-                start: convert(dataset[i].date),
+                start: dataset[i].date,
                 assignTo: null,
                 assignDate: null
             })
@@ -63,7 +72,7 @@ function calculateAlarms(dataset,a) {
             alarms.push({
                 message: "SA Fan Unable to Reach Minimum Frequency",
                 status: "Open",
-                start: convert(dataset[i].date),
+                start: dataset[i].date,
                 assignTo: null,
                 assignDate: null
             })
@@ -72,7 +81,7 @@ function calculateAlarms(dataset,a) {
             alarms.push({
                 message: "SA Fan Flow Rate Unable to Reach Maximum",
                 status: "Open",
-                start: convert(dataset[i].date),
+                start: dataset[i].date,
                 assignTo: null,
                 assignDate: null
             })
@@ -81,7 +90,7 @@ function calculateAlarms(dataset,a) {
             alarms.push({
                 message:  "SA Fan Flow Rate Unable to Reach Minimum",
                 status: "Open",
-                start: convert(dataset[i].date),
+                start: dataset[i].date,
                 assignTo: null,
                 assignDate: null
             })
@@ -91,7 +100,7 @@ function calculateAlarms(dataset,a) {
             alarms.push({
                 message:   "OA Damper Unable to Reach Minimum Position",
                 status: "Open",
-                start: convert(dataset[i].date),
+                start: dataset[i].date,
                 assignTo: null,
                 assignDate: null
             })
@@ -100,7 +109,7 @@ function calculateAlarms(dataset,a) {
             alarms.push({
                 message:   "OA Damper Unable to Reach Maximum Position",
                 status: "Open",
-                start: convert(dataset[i].date),
+                start: dataset[i].date,
                 assignTo: null,
                 assignDate: null
             })
@@ -111,22 +120,31 @@ function calculateAlarms(dataset,a) {
     }
 const AlarmsList = (props) => {
  
-    const { createAlarm } = useContext(alarmContext);
+    // const { createAlarm } = useContext(alarmContext);
     const  alarms = props.alarms;
     const dataset = props.dataset;
 
     let newAlarms = calculateAlarms(dataset, alarms);
 
+    const createAlarm= async datos => {
+        try {
+            const respuesta = await clienteAxios.post('/api/alarms/addAlarms',datos);
+        } catch (error) {
+            console.log(error);
+        }        
+    }
     if (newAlarms.length > 0){
-        console.log(" a ver cuantas ves");
-    for (var i = 0 ; i < newAlarms.length ; i++){
-        createAlarm({
-            message: newAlarms[i].message,
-            status: newAlarms[i].status,
-            assignTo: newAlarms[i].assignTo,
-            assignDate: newAlarms[i].assignDate
-        });
-    } 
+        for (var i = 0 ; i < newAlarms.length ; i++){
+            let alarm = {
+                     message: newAlarms[i].message,
+                    status: newAlarms[i].status,
+                    start: new Date(newAlarms[i].start),
+                    assignTo: newAlarms[i].assignTo,
+                    assignDate: newAlarms[i].assignDate
+            }
+            createAlarm(alarm);
+        }
+        newAlarms = [];
 }
 
    

@@ -61,7 +61,7 @@ return (
                             />
                             </td>
                       }
-                         <td> {alarm.assignDate} </td>
+                         <td> {convert(alarm.assignDate)} </td>
                           </tr>
                         );
                       })}
