@@ -111,7 +111,7 @@ function getArray(dataset, title) {
     }
   } else {
     // generate random data
-    let dates = getRandomDateArray(15);
+    let dates = getRandomDateArray(5);
     for (var i = 0; i < dates.length; i++) {
       data.push({
         chwtin: Math.round(10 + 80 * Math.random()),

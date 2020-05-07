@@ -35,7 +35,7 @@ class Contact extends Component {
                 setTimeout(() => {
                   this.setState({ isSent: false });
                   //this.props.history.push("/dashboard"); // Redirect to home page after sending message
-                }, 13000);
+                }, 14000);
               } else {
                 this.setState({ errors: response.data });
                 const { errors } = this.state;
@@ -66,30 +66,40 @@ class Contact extends Component {
       return (
         <Row className="h-100 justify-content-center align-items-center">
           <Col className="text-center" md={12}>
-            <Alert variant="success">MESSAGE SENT (Refresh page) </Alert>
+            <Alert variant="success">MESSAGE SENT (Refresh page to see changes) </Alert>
           </Col>
         </Row>
       );
     }
 
-    return (
-      <Form className="formContact" onSubmit={this.handleSubmit}>
-        <Form.Group as={Col}>
-          <Form.Control
+    /*
+     <Form.Control
             name="email"
             id="email"
             disabled={isSending}
             type="email"
             placeholder="Enter an email"
             > 
-            </Form.Control>
+            <Form.Group as={Col}>
+       
+  
+        </Form.Group>
+            */
+    return (
+      <Form className="formContact" onSubmit={this.handleSubmit}>
+        <Form.Group as={Col}>
+       
+  
         </Form.Group>
 
         <Form.Group className="pl-3">
           <Button type="submit" disabled={isSending}>
+          <a href={`mailto:?subject=ALARM ASSIGNED TO YOU me&body=This alarm was assigned to you: ${this.props.alarm.message}`}>
+      </a>
             {isSending ? "Sending..." : "Send Message"}
           </Button>
         </Form.Group>
+
       </Form>
     );
   }

@@ -139,8 +139,8 @@ const AlarmsList = (props) => {
                      message: newAlarms[i].message,
                     status: newAlarms[i].status,
                     start: new Date(newAlarms[i].start),
-                    assignTo: newAlarms[i].assignTo,
-                    assignDate: newAlarms[i].assignDate
+                    assignTo: null,
+                    assignDate: null
             }
             createAlarm(alarm);
         }
