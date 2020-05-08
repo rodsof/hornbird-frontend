@@ -364,6 +364,10 @@ ul {
   .quatro {
     display: none;
   }
+  #sidebar {
+    display: block;
+    max-height: 300px !important;
+  }
 }
 
 .alerta-ok {
