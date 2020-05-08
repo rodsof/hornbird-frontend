@@ -133,11 +133,11 @@ const EnergyDashboard = () => {
     totalEnergy = getTotalEnergy(dataset);
   }
 
-    setTimeout(() => {
-        energy = getEnergyMonthly(dataset);
-        lastDate = dataset[dataset.length -1].date;
-        ahucop = getAhuCop(dataset);
-      }, 3600000); // every half hour
+    // setTimeout(() => {
+    //     energy = getEnergyMonthly(dataset);
+    //     lastDate = dataset[dataset.length -1].date;
+    //     ahucop = getAhuCop(dataset);
+    //   }, 3600000); // every half hour
 
     return ( 
       <Container>

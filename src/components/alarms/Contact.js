@@ -93,7 +93,7 @@ class Contact extends Component {
         </Form.Group>
 
         <Form.Group className="pl-3">
-          <Button type="submit" disabled={isSending}>
+          <Button  disabled={isSending}>
           <a href={`mailto:?subject=ALARM ASSIGNED TO YOU me&body=This alarm was assigned to you: ${this.props.alarm.message}`}>
       </a>
             {isSending ? "Sending..." : "Send Message"}
