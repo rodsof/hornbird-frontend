@@ -1,17 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import Dashboard from "../layout/Dashboard";
 import Bar from "../layout/Bar";
-import ChartsList from "../charts/ChartsList";
-import AlarmsList from "../alarms/AlarmsList";
 import AuthContext from "../../context/autenticacion/authContext";
 import itemContext from "../../context/items/itemContext";
 import DashboardContext from "../../context/dashboard/dashboardContext";
-import EnergyDashboard from "./EnergyDashboard";
 import chartContext from "../../context/charts/chartContext";
 import { Container, Row, Col } from "react-bootstrap";
 import BarChart from "../charts/BarChart";
-import LineChart from "../charts/LineChart";
-import ChartTable from "../charts/ChartTable";
 import OptimizationTable from "./OptimizationTable";
 
 const data = [
@@ -58,16 +53,10 @@ function getTotalEnergy(x, y) {
   return data;
 }
 
-function convert(str) {
-  var date = new Date(str),
-    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-    day = ("0" + date.getDate()).slice(-2);
-  return [date.getFullYear(), mnth, day].join("-");
-}
 
-const EnergyOptimization = (props) => {
+const EnergyOptimization = () => {
   const authContext = useContext(AuthContext);
-  const { usuarioAutenticado, getUsers, usuarios } = authContext;
+  const { usuarioAutenticado, getUsers } = authContext;
   const itemsContext = useContext(itemContext);
   const { item, getEnergyOptimization, energyTableData } = itemsContext;
   let name = "";
@@ -75,7 +64,7 @@ const EnergyOptimization = (props) => {
   const { dashboard } = dashboardContext;
 
   const chartsContext = useContext(chartContext);
-  const { getDataset, dataset, getGraphApi, graphApiData } = chartsContext;
+  const { getDataset, getGraphApi, graphApiData } = chartsContext;
   useEffect(() => {
     usuarioAutenticado();
     // eslint-disable-next-line

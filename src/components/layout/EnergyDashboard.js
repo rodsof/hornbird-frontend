@@ -20,7 +20,6 @@ function getEnergyMonthly(dataset){
   let lastYearEnergy = 0;
    let monthlyEnergyAcum=0;
    let lastMonthEnergy = 0;
-   let todayEnergy=0;
    let weeklyEnergyAcum = 0;
    let lastWeekEnergy = 0;
    var today = new Date();
@@ -28,9 +27,7 @@ function getEnergyMonthly(dataset){
    for (var i = 0 ; i < dataset.length ; i++){
     var date = new Date(dataset[i].date);
 
-   if (convert(dataset[i].date) === convert(currentDate)){
-    todayEnergy =  dataset[i].energymonthly;
-   }
+
   //today.getmonth returns month-1
   if (date.getMonth() === today.getMonth()){
       monthlyEnergyAcum =  monthlyEnergyAcum + dataset[i].energymonthly;
@@ -43,7 +40,7 @@ var input = moment(dataset[i].date);
 var lastWeek = moment().subtract(7,'days');
 var lastYear = moment().subtract(1,'years');
 var isThisWeek = (now.isoWeek() === input.isoWeek());
-var isLastWeek = input.isoWeek() == lastWeek.isoWeek();
+var isLastWeek = input.isoWeek() === lastWeek.isoWeek();
 var isThisYear = (now.isoWeekYear() === input.isoWeekYear());
 var isLastYear = (now.isoWeekYear() === lastYear.isoWeekYear());
 
@@ -120,7 +117,6 @@ const EnergyDashboard = () => {
     let lastDate;
     let minDate;
  
-  const authContext = useContext(AuthContext);
     if (!dataset){
       getDataset();
   }

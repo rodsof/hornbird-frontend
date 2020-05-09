@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import AlarmContext from './alarmContext';
 import AlarmReducer from './alarmReducer';
 import clienteAxios from '../../config/axios';
-import { CREATE_ALARM, GET_ALARMS } from '../../types';
+import { GET_ALARMS } from '../../types';
 
 const AlarmState = props => {
     const initialState = {
@@ -13,7 +13,6 @@ const AlarmState = props => {
 
     const createAlarm= async datos => {
         try {
-            const respuesta = await clienteAxios.post('/api/alarms/addAlarms',datos);
         } catch (error) {
             console.log(error);
         }        

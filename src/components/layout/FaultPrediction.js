@@ -1,17 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import Dashboard from "../layout/Dashboard";
 import Bar from "../layout/Bar";
-import ChartsList from "../charts/ChartsList";
-import AlarmsList from "../alarms/AlarmsList";
 import AuthContext from "../../context/autenticacion/authContext";
 import itemContext from "../../context/items/itemContext";
 import DashboardContext from "../../context/dashboard/dashboardContext";
-import EnergyDashboard from "./EnergyDashboard";
 import chartContext from "../../context/charts/chartContext";
 import { Container, Row, Col } from "react-bootstrap";
-import BarChart from "../charts/BarChart"
 import LineChart from "../charts/LineChart"
-import ChartTable from "../charts/ChartTable"
 import FaultTable from "./FaultTable"
 
 
@@ -39,18 +34,17 @@ const data = [
   },
 ]
 
-const tableData = []
-const FaultPrediction = (props) => {
+const FaultPrediction = () => {
   const authContext = useContext(AuthContext);
-  const { usuarioAutenticado, getUsers, usuarios } = authContext;
+  const { usuarioAutenticado, getUsers } = authContext;
   const itemsContext = useContext(itemContext);
-  const { item, getSelectedTable, faultTableData, setParameters, setParams } = itemsContext;
+  const { item, getSelectedTable, faultTableData, setParameters } = itemsContext;
   let name = "";
   const dashboardContext = useContext(DashboardContext);
   const { dashboard } = dashboardContext;
 
   const chartsContext = useContext(chartContext);
-  const { getDataset, dataset, getMachineCondition, machineConditionData } = chartsContext;
+  const { getDataset, getMachineCondition, machineConditionData } = chartsContext;
   useEffect(() => {
     usuarioAutenticado();
 
