@@ -138,8 +138,7 @@ const EnergyDashboard = () => {
     return ( 
       <Container>
         <Row>
-        <div className="col-3">
-        <div className="row nopadding">
+        <div className="col-4">
         <StatsCard 
           statsValue2= {energy.thisYearEnergy}
           statsValue1= {energy.lastYearEnergy}
@@ -153,7 +152,7 @@ const EnergyDashboard = () => {
           statsIconText="This Year"
           />
           </div>
-          <div className="row nopadding">
+          <div className="col-4g">
            <StatsCard 
           statsValue1={energy.lastWeekEnergy}
           statsValue2={energy.weeklyEnergy}
@@ -167,7 +166,7 @@ const EnergyDashboard = () => {
           statsIconText="This Week "
           />
           </div>
-          <div className="row nopadding">
+          <div className="col-4">
           <StatsCard 
           statsValue1={energy.lastMonthEnergy}
           statsValue2={energy.monthlyEnergy}
@@ -181,8 +180,8 @@ const EnergyDashboard = () => {
           statsIconText="This Month"
           />
           </div>
-          </div>
-          <div className="col-9">
+          </Row>
+          <Row>
               <Card
                 statsIcon="fa fa-history"
                 id="chartHours"
@@ -202,11 +201,8 @@ const EnergyDashboard = () => {
                   </div>
                 }      
               />
-        </div>
         </Row>
         <Row>
-        <div className="col">
-        <div className="row nopadding">
         <Card
           statsIcon="fa fa-history"
           id="chartHours"
@@ -224,8 +220,6 @@ const EnergyDashboard = () => {
             </div>
           }
         />
-        </div>
-        </div>
         </Row>
   </Container>
      );
