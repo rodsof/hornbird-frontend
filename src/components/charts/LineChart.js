@@ -24,7 +24,7 @@ class LineChart extends React.Component {
               {
               ticks: {
                 autoSkip: true,
-                maxTicksLimit: 15
+                maxTicksLimit: 14
             }
           }
             ],

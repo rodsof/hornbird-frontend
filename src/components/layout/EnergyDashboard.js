@@ -30,10 +30,10 @@ function getEnergyMonthly(dataset){
 
   //today.getmonth returns month-1
   if (date.getMonth() === today.getMonth()){
-      monthlyEnergyAcum =  monthlyEnergyAcum + dataset[i].energymonthly;
+      monthlyEnergyAcum =  monthlyEnergyAcum + dataset[i].totalpower;
   }
   if(date.getMonth() === today.getMonth() -1 ){
-    lastMonthEnergy = lastMonthEnergy + dataset[i].energymonthly;
+    lastMonthEnergy = lastMonthEnergy + dataset[i].totalpower;
   }
 var now = moment();
 var input = moment(dataset[i].date);
@@ -45,21 +45,25 @@ var isThisYear = (now.isoWeekYear() === input.isoWeekYear());
 var isLastYear = (now.isoWeekYear() === lastYear.isoWeekYear());
 
 if ( isThisWeek) {
-   weeklyEnergyAcum = weeklyEnergyAcum + dataset[i].energymonthly;
+  if( dataset[i].totalpower)
+   weeklyEnergyAcum = weeklyEnergyAcum + dataset[i].totalpower;
 }
 if (isLastWeek){
-  lastWeekEnergy = lastWeekEnergy + dataset[i].energymonthly;
+  if( dataset[i].totalpower)
+  lastWeekEnergy = lastWeekEnergy + dataset[i].totalpower;
 }
 if (isThisYear){
-  thisYearEnergy = thisYearEnergy + dataset[i].energymonthly;
+  if( dataset[i].totalpower)
+  thisYearEnergy = thisYearEnergy + dataset[i].totalpower;
 }
 if(isLastYear){
-  lastYearEnergy = lastYearEnergy + dataset[i].energymonthly;
+  if( dataset[i].totalpower)
+  lastYearEnergy = lastYearEnergy + dataset[i].totalpower;
 }
 }
-let yearlyAmount = thisYearEnergy/lastYearEnergy;
-let monthlyAmount = monthlyEnergyAcum/lastMonthEnergy;
-let weeklyAmount = weeklyEnergyAcum/lastWeekEnergy;
+let yearlyAmount = (thisYearEnergy/lastYearEnergy).toFixed(1);
+let monthlyAmount = (monthlyEnergyAcum/lastMonthEnergy).toFixed(1);
+let weeklyAmount = (weeklyEnergyAcum/lastWeekEnergy).toFixed(1);
 let data = {
   thisYearEnergy : thisYearEnergy,
   lastYearEnergy : lastYearEnergy,
@@ -82,7 +86,7 @@ return data;
       if (data){
         for(var j = 0 ; j<data.length ; j++){
           if(data[j].label === convert(dataset[i].date)){
-              data[j].value = data[j].value + dataset[i].energymonthly;
+              data[j].value = data[j].value + dataset[i].totalpower;
               repeated = true;
           }
       }
@@ -90,7 +94,7 @@ return data;
     if(!repeated){
      data.push({
      label: convert(dataset[i].date) ,
-     value:  dataset[i].energymonthly
+     value:  dataset[i].totalpower
    })
   }
   }
@@ -100,11 +104,23 @@ return data;
   
   function getAhuCop(dataset){
     let data = [];
-    for (var i = 0 ; i < dataset.length ; i++)
+    for (var i = 0 ; i < dataset.length ; i++){
+      let repeated = false;
+      if (data){
+        for(var j = 0 ; j<data.length ; j++){
+          if(data[j].label === convert(dataset[i].date)){
+              data[j].value = data[j].value + dataset[i].ahucop;
+              repeated = true;
+          }
+      }
+    }
+    if(!repeated){
      data.push({
      label: convert(dataset[i].date) ,
      value:  dataset[i].ahucop
    })
+  }
+  }
    return data;
   };  
 
