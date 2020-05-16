@@ -109,7 +109,7 @@ return data;
       if (data){
         for(var j = 0 ; j<data.length ; j++){
           if(data[j].label === convert(dataset[i].date)){
-              data[j].value = data[j].value + dataset[i].ahucop;
+              data[j].value = dataset[i].ahucop;
               repeated = true;
           }
       }
