@@ -26,34 +26,34 @@ function getArray(dataset, title) {
         for(var j = 0 ; j<data.length ; j++){
           if(data[j].label === convert(dataset[i].date)){
             if (title === "CHW TIN"){
-              data[j].value = data[j].value;
+              data[j].value = dataset[i].chwtin;
               repeated = true;
             }
             if (title === "CHW TOUT") {
-              data[j].value = data[j].value;
+              data[j].value = dataset[i].chwtout;
               repeated = true;
             }
             if (title === "SA T") {
-              data[j].value = data[j].value;
+              data[j].value = dataset[i].sat;
               repeated = true;
             }
             if (title === "SPACE T") {
-              data[j].value = data[j].value;
+              data[j].value = dataset[i].spacet;
               repeated = true;  
             }   if (title === "OA T") {
-              data[j].value = data[j].value;
+              data[j].value = dataset[i].chwtin;
               repeated = true;
             }
             if (title === "SA DUCT ST PRESSURE") {
-              data[j].value = data[j].value;
+              data[j].value = dataset[i].saductstpressure;
               repeated = true;
             }
             if (title === "OAT RH") {
-              data[j].value = data[j].value;
+              data[j].value = dataset[i].oatrh;
               repeated = true;
             }
             if (title === "Space RH") {
-              data[j].value = data[j].value;
+              data[j].value = dataset[i].spacerh;
               repeated = true; 
             }
           }
