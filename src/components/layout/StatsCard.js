@@ -34,7 +34,7 @@ export class StatsCard extends Component {
           <div className="footer">
             <hr />
             { !isNaN(this.props.amount) && isFinite(this.props.amount) ?
-            <span>Amount: {this.props.amount} %</span>
+            <span>Change: {this.props.amount} %</span>
             :
             null }
             <hr />

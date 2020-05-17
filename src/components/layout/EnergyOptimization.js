@@ -1,12 +1,17 @@
 import React, { useContext, useEffect } from "react";
 import Dashboard from "../layout/Dashboard";
 import Bar from "../layout/Bar";
+import ChartsList from "../charts/ChartsList";
+import AlarmsList from "../alarms/AlarmsList";
 import AuthContext from "../../context/autenticacion/authContext";
 import itemContext from "../../context/items/itemContext";
 import DashboardContext from "../../context/dashboard/dashboardContext";
+import EnergyDashboard from "./EnergyDashboard";
 import chartContext from "../../context/charts/chartContext";
 import { Container, Row, Col } from "react-bootstrap";
 import BarChart from "../charts/BarChart";
+import LineChart from "../charts/LineChart";
+import ChartTable from "../charts/ChartTable";
 import OptimizationTable from "./OptimizationTable";
 
 const data = [
@@ -53,10 +58,16 @@ function getTotalEnergy(x, y) {
   return data;
 }
 
+function convert(str) {
+  var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [date.getFullYear(), mnth, day].join("-");
+}
 
-const EnergyOptimization = () => {
+const EnergyOptimization = (props) => {
   const authContext = useContext(AuthContext);
-  const { usuarioAutenticado, getUsers } = authContext;
+  const { usuarioAutenticado, getUsers, usuarios } = authContext;
   const itemsContext = useContext(itemContext);
   const { item, getEnergyOptimization, energyTableData } = itemsContext;
   let name = "";
@@ -64,18 +75,31 @@ const EnergyOptimization = () => {
   const { dashboard } = dashboardContext;
 
   const chartsContext = useContext(chartContext);
-  const { getDataset, getGraphApi, graphApiData } = chartsContext;
+  const { getDataset, dataset, getGraphApi, graphApiData } = chartsContext;
   useEffect(() => {
     usuarioAutenticado();
     // eslint-disable-next-line
+    // setInterval(() => {
+
+    //   getGraphApi()
+    //   getEnergyOptimization();
+    // }, 5000)
   }, []);
 
   // item changes
   useEffect(() => {
+
     getUsers();
+
     getDataset();
-    getGraphApi()
-    getEnergyOptimization();
+    setInterval(() => {
+
+      getGraphApi()
+      getEnergyOptimization();
+    }, 20000)
+
+    // getGraphApi()
+    // getEnergyOptimization();
 
     // eslint-disable-next-line
   }, [item]);
@@ -105,14 +129,14 @@ const EnergyOptimization = () => {
 
   return (
     <div className="row">
-      <div className="col-md-12 nopadding">
+      {/* <div className="col-md-12 nopadding">
         <Bar />
       </div>
       {dashboard ? (
         <div className="col-md-3 nopadding">
           <Dashboard />
         </div>
-      ) : null}
+      ) : null} */}
       <div className="col-md-9 nopadding">
         <main style={{ paddingTop: 20 }}>
           <Container>

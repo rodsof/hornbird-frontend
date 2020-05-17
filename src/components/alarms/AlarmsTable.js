@@ -61,7 +61,7 @@ return (
                             />
                             </td>
                       }
-                         <td> { alarm.assignDate ?  convert(alarm.assignDate)  : null } </td>
+                         <td> {convert(alarm.assignDate)} </td>
                           </tr>
                         );
                       })}
