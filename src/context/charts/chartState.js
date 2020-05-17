@@ -41,7 +41,8 @@ const ChartState = props => {
     const getMachineCondition = async () => {
         try {
             let arr = []
-            let result = await axios.get('https://facialrecognition-1.herokuapp.com/api/machineCondition');
+            
+            let result = await axios.get('https://hvac-api.herokuapp.com/api/machineCondition');
             result = JSON.parse(result.data)
             // console.log("result===>", result)
 
@@ -69,7 +70,7 @@ const ChartState = props => {
 
     const getGraphApi = async () => {
         try {
-            const result = await axios.get('https://facialrecognition-1.herokuapp.com/api/graphs');
+            const result = await axios.get('https://hvac-api.herokuapp.com/api/graphs');
             // console.log("result", result)
             dispatch({
                 type: GRAPH_API,

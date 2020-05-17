@@ -1,10 +1,12 @@
-import React,{ useContext } from 'react';
+import React,{ useContext, useEffect } from 'react';
 import Iframe from 'react-iframe';
 import Bar from './Bar';
 import AuthContext from "../../context/autenticacion/authContext";
 import alarmContext from "../../context/alarms/alarmContext";
 const LandingPage = (props) => {
     const authContext = useContext(AuthContext);
+    const { autenticado} = authContext; 
+    const AlarmContext = useContext(alarmContext);
     const { alarms, getAlarms } = useContext(alarmContext);
  
   if(!alarms){

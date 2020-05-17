@@ -43,3 +43,9 @@ const ItemsList = ({ai}) => {
 }
 
 export default ItemsList;
+
+// 0: {_id: "5e6ad72e3cba6e0538dd635e", name: "FDD Alarms", href: "#"}
+// 1: {_id: "5eb186a292a46a2d7c741025", name: "Energy Optimization", href: "energy-optimization"}
+// 2: {_id: "5e597ae0f1acc234600c2ed5", name: "Energy", href: "#"}
+// 3: {_id: "5eb16afa92a46a2d7c741024", name: "Anomaly Prediction", href: "anomaly-prediction"}
+// 4: {_id: "5e6ad7203cba6e0538dd635d", name: "AHU", href: "#"}
