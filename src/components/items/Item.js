@@ -18,22 +18,22 @@ const Item = ({item,ai}) => {
   }
     return ( 
       <li className="sub-menu">
-        { item.href === "#" && !ai ? 
+        { item.name !== "Artificial Intelligence" ? 
       <a 
             href="#"
             className="btn btn-primario btn-block" 
             onClick = {()=> selectItem(item._id)}>
-                {item.name}
+                {item.name} 
             </a> 
          : null }
 
-{ item.href !== "#" && ai ?
-      <a 
-     className="btn btn-primario btn-block" 
-href={item.href}
-    >
-      {item.name}
-</a>
+{ item.name === "Artificial Intelligence" ?
+                <li className="active">
+                <a className="btn btn-primario btn-block" href="/">
+                              <i className="icon_house_alt"></i>
+                              <span>Artificial Intelligence</span>
+                          </a>
+              </li> 
 : null
 }
     </li>
