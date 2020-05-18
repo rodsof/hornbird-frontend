@@ -18,17 +18,7 @@ const Dashboard = () => {
                       </a>
           </li>
          <ItemsList 
-         ai = {false}
          />
-         {/* <li className="active">
-            <a className="btn btn-primario btn-block" href="/">
-                          <i className="icon_house_alt"></i>
-                          <span>Artificial Intelligence</span>
-                      </a>
-          </li> */}
-          <ItemsList
-          ai = {true}
-          />
         </ul>
       </div>
     </aside>

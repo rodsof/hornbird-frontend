@@ -61,9 +61,10 @@ function getEnergyMonthly(dataset) {
         lastYearEnergy = lastYearEnergy + dataset[i].totalpower;
     }
   }
-  let yearlyAmount = (thisYearEnergy / lastYearEnergy).toFixed(1);
-  let monthlyAmount = (monthlyEnergyAcum / lastMonthEnergy).toFixed(1);
-  let weeklyAmount = (weeklyEnergyAcum / lastWeekEnergy).toFixed(1);
+
+  let yearlyAmount = (((lastYearEnergy - thisYearEnergy)*100)/lastYearEnergy).toFixed(1);
+  let monthlyAmount = (((lastMonthEnergy - monthlyEnergyAcum)*100)/lastMonthEnergy).toFixed(1);
+  let weeklyAmount = (((lastWeekEnergy - weeklyEnergyAcum)*100)/lastWeekEnergy).toFixed(1);
   let data = {
     thisYearEnergy: thisYearEnergy,
     lastYearEnergy: lastYearEnergy,
@@ -151,21 +152,7 @@ const EnergyDashboard = () => {
   return (
     <Container>
       <Row>
-        <div className="col-4">
-          <StatsCard
-            statsValue2={energy.thisYearEnergy}
-            statsValue1={energy.lastYearEnergy}
-            unit="KW-Hr"
-            statsText2="This Year"
-            statsText1="Last Year"
-            amount={energy.yearlyAmount}
-            bg="success"
-            bigIcon={<i className="pe-7s-graph1 text-danger" />}
-            statsIcon={<i className="fa fa-clock-o" />}
-            statsIconText="This Year"
-          />
-        </div>
-        <div className="col-4g">
+      <div className="col-4">
           <StatsCard
             statsValue1={energy.lastWeekEnergy}
             statsValue2={energy.weeklyEnergy}
@@ -193,6 +180,21 @@ const EnergyDashboard = () => {
             statsIconText="This Month"
           />
         </div>
+        <div className="col-4">
+          <StatsCard
+            statsValue2={energy.thisYearEnergy}
+            statsValue1={energy.lastYearEnergy}
+            unit="KW-Hr"
+            statsText2="This Year"
+            statsText1="Last Year"
+            amount={energy.yearlyAmount}
+            bg="success"
+            bigIcon={<i className="pe-7s-graph1 text-danger" />}
+            statsIcon={<i className="fa fa-clock-o" />}
+            statsIconText="This Year"
+          />
+        </div>
+       
       </Row>
       <Row>
         <Card

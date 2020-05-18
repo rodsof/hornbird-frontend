@@ -26,6 +26,7 @@ function calculateAlarms(dataset,a) {
     // Create random array of objects
     let alarms = [];
     var today = new Date();
+    //today.setDate(today.getDate() - 4);
     let maxDate;
 
     if (a.length>0){
@@ -38,16 +39,16 @@ function calculateAlarms(dataset,a) {
     else{
         maxDate = today;
     }
+    //console.log(maxDate);
     for (var i=0 ; i < dataset.length ; i++){
         if (convert(dataset[i].date) > convert(maxDate)){
-            console.log(convert(dataset[i].date) +"y "+ convert(maxDate));
+           // console.log("FFF");
         if ( dataset[i].saductstpressure <= 90 &&  dataset[i].safanfrequency < 60 ){
              alarms.push({
                 message: "SA Fan Unable to Reach Maximum Frequency",
                 status: "Open",
                 start: dataset[i].date,
                 assignTo: null,
-                assignDate: null
             })
         }
         if ( dataset[i].spacet >= 24 &&  dataset[i ].safanfrequency === 60 &&  dataset[i ].chwvalveposition < 100){
@@ -56,7 +57,6 @@ function calculateAlarms(dataset,a) {
                 status: "Open",
                 start: dataset[i].date,
                 assignTo: null,
-                assignDate: null
             })
         }
         if ( dataset[i].spacet <= 22 &&  dataset[i ].safanfrequency === 40 &&  dataset[i ].chwvalveposition > 0){
@@ -65,7 +65,6 @@ function calculateAlarms(dataset,a) {
                 status: "Open",
                 start: dataset[i].date,
                 assignTo: null,
-                assignDate: null
             })
         }
         if ( dataset[i].saductstpressure >= 110 &&  dataset[i ].safanfrequency > 40 ){
@@ -74,7 +73,6 @@ function calculateAlarms(dataset,a) {
                 status: "Open",
                 start: dataset[i].date,
                 assignTo: null,
-                assignDate: null
             })
         }
         if ( dataset[i].saductstpressure <= 90 &&  dataset[i ].safr < 1000){
@@ -83,7 +81,6 @@ function calculateAlarms(dataset,a) {
                 status: "Open",
                 start: dataset[i].date,
                 assignTo: null,
-                assignDate: null
             })
         }
         if ( dataset[i].saductstpressure >= 110 &&  dataset[i ].safr > 600){
@@ -92,7 +89,6 @@ function calculateAlarms(dataset,a) {
                 status: "Open",
                 start: dataset[i].date,
                 assignTo: null,
-                assignDate: null
             })
         }
 
@@ -102,7 +98,6 @@ function calculateAlarms(dataset,a) {
                 status: "Open",
                 start: dataset[i].date,
                 assignTo: null,
-                assignDate: null
             })
         }
         if ( dataset[i].space >= 2400 &&  dataset[i ].oadamperopen < 30){
@@ -111,7 +106,6 @@ function calculateAlarms(dataset,a) {
                 status: "Open",
                 start: dataset[i].date,
                 assignTo: null,
-                assignDate: null
             })
     }
     }
@@ -140,7 +134,6 @@ const AlarmsList = (props) => {
                     status: newAlarms[i].status,
                     start: new Date(newAlarms[i].start),
                     assignTo: newAlarms[i].assignTo,
-                    assignDate: newAlarms[i].assignDate
             }
             createAlarm(alarm);
         }
