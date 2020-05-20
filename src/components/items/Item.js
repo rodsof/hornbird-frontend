@@ -1,4 +1,4 @@
-import React,{ useContext } from 'react';
+import React,{ useContext, Fragment } from 'react';
 import itemContext from '../../context/items/itemContext';
 import chartContext from '../../context/charts/chartContext';
 const Item = ({item,ai}) => {
@@ -17,27 +17,25 @@ const Item = ({item,ai}) => {
         getCharts(id); // filtrar las tareas segun item
   }
     return ( 
-      <li className="sub-menu">
+      <Fragment>
         { item.name !== "Artificial Intelligence" ? 
+        <li className="sub-menu">
       <a 
             href="#"
             className="btn btn-primario btn-block" 
             onClick = {()=> selectItem(item._id)}>
                 {item.name} 
             </a> 
-         : null }
-
-{ item.name === "Artificial Intelligence" ?
-                <li className="active">
-                <a className="btn btn-primario btn-block" href="/">
-                              <i className="icon_house_alt"></i>
-                              <span>Artificial Intelligence</span>
-                          </a>
-              </li> 
-: null
-}
-    </li>
-      
+            </li>
+         : 
+         <li className="active">
+         <a className="btn btn-primario btn-block" href="/">
+                       <i className="icon_house_alt"></i>
+                       <span>Artificial Intelligence</span>
+                   </a>
+       </li> 
+         }
+</Fragment>
      );
 }
  

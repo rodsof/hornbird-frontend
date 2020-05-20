@@ -86,16 +86,21 @@ class Contact extends Component {
         </Form.Group>
 
         <Form.Group className="pl-3">
+     
           <Button type="submit" disabled={isSending}>
             {isSending ? "Sending..." : "Send Message"}
-          </Button>
+            { !isSending && errors.length >0 ? "Resend" : null}
+          </Button> 
+        
         </Form.Group>
       </Form>
     );
   }
+  
   render() {
     return <Container className="h-100">{this.showContactForm()}</Container>;
   }
 }
+
 
 export default Contact;
